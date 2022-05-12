@@ -1,0 +1,8 @@
+{
+    "window": {
+        "height": 600,
+        "width": 800,
+        "title": "Adventurer's Life!",
+        "vsync": true
+    }
+}
