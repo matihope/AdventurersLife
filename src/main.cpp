@@ -26,8 +26,10 @@ int main(){
     auto map = std::make_unique<TileMap>();
     map->load("../worlds/world.json");
     game.sprites.addSprite(std::move(map), 0);
+
     sf::View view(sf::FloatRect(0.f, 0.f, 320.f, 240.f));
     window.setView(view);
+
 
     bool run = true;
     while(run){
@@ -38,9 +40,9 @@ int main(){
                     run = false;
                     break;
                 case sf::Event::Resized:
-                    sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
+                    // sf::FloatRect visibleArea(0.f, 0.f, event.size.width, event.size.height);
 
-                    window.setView(view);
+                    // window.setView(view);
                     break;
             }
         }
@@ -48,6 +50,7 @@ int main(){
 
 
         game.draw(window);
+        game.update();
         window.display();
     }
     window.close();

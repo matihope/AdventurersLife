@@ -1,4 +1,4 @@
-# AdventurersLife
+# Adventurer's Life!
 A little game I'm writing in SFML and C++
 
 
@@ -9,3 +9,6 @@ Dependencies:
  - Visual Studio Code, because I'm lazy and I won't provide other build scripts, they are already set up for this editor :PP [Download here](https://code.visualstudio.com/Download)
 
 Game features almost complete implementation of [Tiled editor](https://www.mapeditor.org/) exported maps.
+
+Special thanks to:
+ - Ninja adventure! [link](https://pixel-boy.itch.io/ninja-adventure-asset-pack)

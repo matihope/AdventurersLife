@@ -17,9 +17,9 @@
                 "${workspaceFolder}/include/Game/Game.cpp",
                 "${workspaceFolder}/include/Level/Level.cpp",
                 "${workspaceFolder}/include/TileMap/TileMap.cpp",
-                "${workspaceFolder}/include/Drawable/Drawable.cpp",
                 "${workspaceFolder}/include/JsonBridge/JsonBridge.cpp",
                 "${workspaceFolder}/include/DrawLayers/DrawLayers.cpp",
+                "${workspaceFolder}/include/AnimatedSprite/AnimatedSprite.cpp",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/src"

@@ -4,7 +4,7 @@
 void DrawLayers::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     for(auto it = m_background_sprites.begin(); it != m_background_sprites.end(); ++it) {
-        for(auto& sprite : it->second){
+        for(const auto& sprite : it->second){
             target.draw(*sprite, states);
         }
     }
