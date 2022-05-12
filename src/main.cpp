@@ -4,6 +4,7 @@
 #include <vector>
 #include <JsonBridge/JsonBridge.hpp>
 #include <iostream>
+#include <memory>
 
 int main(){
 
@@ -23,8 +24,10 @@ int main(){
     window.setVerticalSyncEnabled(settings.data["window"]["vsync"]);
 
     Game game;
-    auto map = std::make_unique<TileMap>();
+    auto map = std::make_shared<TileMap>();
     map->load("../worlds/world.json");
+    auto map_upd = std::dynamic_pointer_cast<Updatable>(map);
+    game.addUpdatable(std::move(map_upd));
     game.sprites.addSprite(std::move(map), 0);
 
     sf::View view(sf::FloatRect(0.f, 0.f, 320.f, 240.f));

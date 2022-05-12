@@ -50,6 +50,9 @@ bool TileMap::load(const std::string& mapFile){
                     );
                 }
                 auto animated = std::make_shared<AnimatedSprite>();
+                animated->setTexture(*texture);
+                animated->addAnimation(animation, "base");
+                animated->play("base");
                 m_tile_templates[int(tile["id"]) + fileTileId] = animated;
                 m_is_animated[int(tile["id"]) + fileTileId] = true;
             }
@@ -73,13 +76,16 @@ bool TileMap::load(const std::string& mapFile){
                 continue;
 
             // copy tile from template and locate it correctly
-            auto tile = std::make_unique<sf::Sprite>(*m_tile_templates[tileId]);
-            tile->setPosition(
-                (j % layerWidth) * tileW,
-                (j / layerWidth) * tileH
-            );
-            m_layers.addSprite(std::move(tile), i);
-            // if(m_is_animated[tileId])
+            if(m_is_animated[tileId]){
+                auto other = std::dynamic_pointer_cast<AnimatedSprite>(m_tile_templates[tileId]);
+                other->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
+                m_updatables.push_back(other);
+                m_layers.addSprite(std::move(other), i);
+            } else {
+                auto tile = std::make_shared<sf::Sprite>(*m_tile_templates[tileId]);
+                tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
+                m_layers.addSprite(std::move(tile), i);
+            }
 
         }
     }

@@ -9,7 +9,7 @@
 class Game {
     float m_dt = 0; // delta time
     sf::Clock m_clock;
-    std::vector<std::unique_ptr<Updatable>> m_updatables;
+    std::vector<std::shared_ptr<Updatable>> m_updatables;
 
     public:
         DrawLayers sprites;
@@ -17,5 +17,6 @@ class Game {
 
         void update();
         void physicsUpdate();
+        void addUpdatable(std::shared_ptr<Updatable> updatable);
 };
 #endif

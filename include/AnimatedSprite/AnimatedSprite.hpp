@@ -12,7 +12,7 @@ struct Frame {
 };
 typedef std::vector<Frame> Animation;
 
-class AnimatedSprite : public sf::Sprite, Updatable {
+class AnimatedSprite : public sf::Sprite, public Updatable {
 
     std::map<std::string, std::shared_ptr<Animation>> m_animations;
     std::string m_current_animation_name;

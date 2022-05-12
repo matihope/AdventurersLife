@@ -13,3 +13,7 @@ void Game::update(){
         updatable->update(m_dt);
     }
 }
+
+void Game::addUpdatable(std::shared_ptr<Updatable> updatable){
+    m_updatables.push_back(std::move(updatable));
+}

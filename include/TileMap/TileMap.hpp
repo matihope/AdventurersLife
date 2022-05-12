@@ -12,7 +12,7 @@ class TileMap : public sf::Drawable, public Updatable {
     std::vector<std::unique_ptr<sf::Texture>> m_textures;
     std::map<uint, std::shared_ptr<sf::Sprite>> m_tile_templates;
     std::map<uint, bool> m_is_animated;
-    std::vector<std::unique_ptr<Updatable>> m_updatables;
+    std::vector<std::shared_ptr<Updatable>> m_updatables;
 
     public:
         bool load(const std::string& mapFile);

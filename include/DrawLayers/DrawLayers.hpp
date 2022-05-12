@@ -6,7 +6,7 @@
 #include <iostream>
 #include <memory>
 
-typedef std::unique_ptr<sf::Drawable> SpritePointer;
+typedef std::shared_ptr<sf::Drawable> SpritePointer;
 typedef std::vector<SpritePointer> SpriteVector;
 
 class DrawLayers : public sf::Drawable, sf::Transformable {
