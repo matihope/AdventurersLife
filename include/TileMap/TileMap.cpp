@@ -1,12 +1,13 @@
+#include <AnimatedSprite/AnimatedSprite.hpp>
 #include <TileMap/TileMap.hpp>
 #include <iostream>
-#include <AnimatedSprite/AnimatedSprite.hpp>
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     m_layers.draw(target, states);
 }
 
 bool TileMap::load(const std::string& mapFile){
+    m_tilemap_path = mapFile;
     if(!m_map_data.load(mapFile)){
         std::cout << "Error loading map: " << mapFile << std::endl;
         return false;
@@ -38,7 +39,6 @@ bool TileMap::load(const std::string& mapFile){
             for(auto tile: m_map_data.data["tilesets"][i]["tiles"]){
                 if(!tile.contains("animation"))
                     continue;
-
 
                 Animation animation;
                 for(auto& frame: tile["animation"]){
@@ -76,16 +76,16 @@ bool TileMap::load(const std::string& mapFile){
                 continue;
 
             // copy tile from template and locate it correctly
+            auto tile = std::make_shared<sf::Sprite>(getTileTemplate(tileId));
             if(m_is_animated[tileId]){
+                // Some wild stuff going on here... but it works tho
                 auto other = std::dynamic_pointer_cast<AnimatedSprite>(m_tile_templates[tileId]);
-                other->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
-                m_updatables.push_back(other);
-                m_layers.addSprite(std::move(other), i);
-            } else {
-                auto tile = std::make_shared<sf::Sprite>(*m_tile_templates[tileId]);
-                tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
-                m_layers.addSprite(std::move(tile), i);
+                auto animatedTile = std::make_shared<AnimatedSprite>(*other);
+                m_updatables.push_back(animatedTile);
+                tile = std::dynamic_pointer_cast<sf::Sprite>(animatedTile);
             }
+            tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
+            m_layers.addSprite(std::move(tile), i);
 
         }
     }
@@ -96,7 +96,17 @@ sf::Sprite TileMap::getTileTemplate(uint id) const {
     return *m_tile_templates.at(id);
 }
 
-void TileMap::update(float dt){
+void TileMap::update(const float& dt){
     for(auto& updatable: m_updatables)
         updatable->update(dt);
+}
+
+bool TileMap::reload(){
+    m_map_data.data.clear();
+    m_layers = DrawLayers();
+    m_textures.clear();
+    m_tile_templates.clear();
+    m_is_animated.clear();
+    m_updatables.clear();
+    return load(m_tilemap_path);
 }

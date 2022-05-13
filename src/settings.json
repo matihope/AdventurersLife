@@ -4,5 +4,9 @@
         "width": 800,
         "title": "Adventurer's Life!",
         "vsync": true
+    },
+    "viewport": {
+        "width": 320,
+        "height": 240
     }
 }

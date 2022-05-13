@@ -20,6 +20,8 @@
                 "${workspaceFolder}/include/JsonBridge/JsonBridge.cpp",
                 "${workspaceFolder}/include/DrawLayers/DrawLayers.cpp",
                 "${workspaceFolder}/include/AnimatedSprite/AnimatedSprite.cpp",
+                "${workspaceFolder}/include/States/State.cpp",
+                "${workspaceFolder}/include/States/GameState.cpp",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/src"
