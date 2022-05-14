@@ -10,16 +10,23 @@ struct Frame {
     uint frameTime;
     sf::IntRect frameRect;
 };
-typedef std::vector<Frame> Animation;
+
+struct Animation {
+    sf::Texture texture;
+    std::vector<Frame> frames;
+};
 
 class AnimatedSprite : public sf::Sprite, public Updatable {
+    // variables
+    float m_frame_time = 0.f;
+    uint m_current_frame = 0;
+    bool m_is_paused = false;
 
+    // objects
     std::map<std::string, std::shared_ptr<Animation>> m_animations;
     std::string m_current_animation_name;
     std::shared_ptr<Animation> m_current_animation_ptr;
     std::vector<std::string> m_animation_names;
-    float m_frame_time = 0.f;
-    uint m_current_frame = 0;
 
 
     public:
@@ -27,6 +34,8 @@ class AnimatedSprite : public sf::Sprite, public Updatable {
         void ready() override {};
         void addAnimation(const Animation newAnimation, std::string animationName);
         void play(const std::string animationName);
+        void pause();
+        void resume();
         const std::vector<std::string> getAnimationNames() const;
 };
 

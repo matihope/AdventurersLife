@@ -41,8 +41,9 @@ bool TileMap::load(const std::string& mapFile){
                     continue;
 
                 Animation animation;
+                animation.texture = *texture;
                 for(auto& frame: tile["animation"]){
-                    animation.push_back(
+                    animation.frames.push_back(
                         {
                             uint(frame["duration"]),
                             m_tile_templates[int(frame["tileid"]) + fileTileId]->getTextureRect()
@@ -50,7 +51,6 @@ bool TileMap::load(const std::string& mapFile){
                     );
                 }
                 auto animated = std::make_shared<AnimatedSprite>();
-                animated->setTexture(*texture);
                 animated->addAnimation(animation, "base");
                 animated->play("base");
                 m_tile_templates[int(tile["id"]) + fileTileId] = animated;
