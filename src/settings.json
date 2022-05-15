@@ -8,5 +8,12 @@
     "viewport": {
         "width": 320,
         "height": 240
+    },
+    "debug": {
+        "printFPS": false
+    },
+    "engine": {
+        "physicsUpdateCallFreq": 60,
+        "fontPath": "../resources/HUD/Font/Born2bSportyV2.ttf"
     }
 }

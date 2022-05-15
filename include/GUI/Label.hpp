@@ -13,22 +13,26 @@ namespace GUI {
 
     enum class VAlignment {
         TOP,
-        MIDDLE,
+        CENTER,
         BOTTOM
     };
 
     class Label : public sf::Drawable, public sf::Transformable {
-        std::shared_ptr<sf::Font> m_font;
+        sf::Font* m_font;
         HAlignment m_halignment = HAlignment::LEFT;
         VAlignment m_valignment = VAlignment::TOP;
         sf::Text m_text;
 
         public:
-            Label(std::shared_ptr<sf::Font> font);
+            Label() {};
+            Label(sf::Font* font);
+            void setFont(sf::Font* font);
             void setText(const std::string& text);
             void setAlignment(HAlignment newHAlignment, VAlignment newVAlignment);
             void setTextSize(const uint newSize);
+            void setColor(const sf::Color newColor);
             void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+            const sf::FloatRect getBounds() const;
     };
 }
 
