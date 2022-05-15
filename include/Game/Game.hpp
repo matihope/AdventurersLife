@@ -4,7 +4,7 @@
 #include <DrawLayers/DrawLayers.hpp>
 #include <Updatable/Updatable.hpp>
 #include <JsonBridge/JsonBridge.hpp>
-#include <States/State.hpp>
+#include <Contexts/Context.hpp>
 #include <memory>
 #include <iostream>
 #include <stack>
@@ -19,7 +19,7 @@ class Game {
     sf::Clock m_clock;
     JsonBridge m_game_settings;
     sf::RenderWindow m_window;
-    std::stack<std::shared_ptr<State>> m_states_stack;
+    std::stack<std::shared_ptr<Context>> m_contexts_stack;
     sf::View m_view;
 
     // funtcions
@@ -35,7 +35,9 @@ class Game {
         void setPrintFPS(const bool& printFPS);
         const bool isRunning() const;
         const sf::Vector2u getWindowSize() const;
+        const sf::RenderWindow& getRenderWindow() const;
         void updateViewportSize();
-        void addState(std::shared_ptr<State> newState);
+        void addContext(std::shared_ptr<Context> newContext);
+        void popContext();
 };
 #endif

@@ -1,10 +1,10 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef GAMECONTEXT_H
+#define GAMECONTEXT_H
 #include <SFML/Graphics.hpp>
-#include <States/State.hpp>
+#include <Contexts/Context.hpp>
 #include <TileMap/TileMap.hpp>
 
-class GameState : public State {
+class GameState : public Context {
     std::shared_ptr<TileMap> m_tile_map;
 
     public:

@@ -52,8 +52,8 @@ bool Game::init(const std::string settingsPath){
 void Game::draw() {
     m_window.clear(sf::Color(21, 21, 21));
 
-    if(!m_states_stack.empty())
-        m_states_stack.top()->draw(m_window);
+    if(!m_contexts_stack.empty())
+        m_contexts_stack.top()->draw(m_window);
 
     m_window.display();
 }
@@ -61,15 +61,20 @@ void Game::draw() {
 void Game::update(){
     m_dt = m_clock.restart().asSeconds();
 
-    if(!m_states_stack.empty())
-        m_states_stack.top()->update(m_dt);
+    if(!m_contexts_stack.empty())
+        m_contexts_stack.top()->update(m_dt);
 
     m_printFPS();
 
 }
 
-void Game::addState(std::shared_ptr<State> newState){
-    m_states_stack.push(std::move(newState));
+void Game::addContext(std::shared_ptr<Context> newState){
+    newState->addGame(this);
+    m_contexts_stack.push(std::move(newState));
+}
+
+void Game::popContext(){
+    m_contexts_stack.pop();
 }
 
 void Game::pollEvents(){
@@ -85,7 +90,7 @@ void Game::pollEvents(){
                             m_run = false;
                             break;
                         case sf::Keyboard::Slash:
-                            m_states_stack.pop();
+                            m_contexts_stack.pop();
                             break;
                     }
                 case sf::Event::Resized:
@@ -110,6 +115,10 @@ const void Game::m_printFPS() const{
 
 const sf::Vector2u Game::getWindowSize() const {
     return m_window.getSize();
+}
+
+const sf::RenderWindow& Game::getRenderWindow() const {
+    return m_window;
 }
 
 void Game::updateViewportSize(){

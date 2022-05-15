@@ -10,7 +10,7 @@
                 "${workspaceFolder}/src/main.cpp",
                 "-o",
                 "${workspaceFolder}/build/main",
-                "-I\"${workspaceFolder}\"/include",
+                "-I${workspaceFolder}/include",
                 "-lsfml-graphics",
                 "-lsfml-window",
                 "-lsfml-system",
@@ -20,8 +20,9 @@
                 "${workspaceFolder}/include/JsonBridge/JsonBridge.cpp",
                 "${workspaceFolder}/include/DrawLayers/DrawLayers.cpp",
                 "${workspaceFolder}/include/AnimatedSprite/AnimatedSprite.cpp",
-                "${workspaceFolder}/include/States/State.cpp",
-                "${workspaceFolder}/include/States/GameState.cpp",
+                "${workspaceFolder}/include/Contexts/Context.cpp",
+                "${workspaceFolder}/include/Contexts/GameContext.cpp",
+                "${workspaceFolder}/include/GUI/Label.cpp",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/src"
