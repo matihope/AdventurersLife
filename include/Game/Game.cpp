@@ -46,8 +46,8 @@ bool Game::init(const std::string settingsPath) {
     );
     m_draw_target.setSmooth(false);
     m_draw_target_sprite.setScale(
-        int(m_game_settings.data["window"]["width"]) / int(m_game_settings.data["viewport"]["width"]),
-        int(m_game_settings.data["window"]["height"]) / int(m_game_settings.data["viewport"]["height"])
+        float(m_game_settings.data["window"]["width"]) / int(m_game_settings.data["viewport"]["width"]),
+        float(m_game_settings.data["window"]["height"]) / int(m_game_settings.data["viewport"]["height"])
     );
 
     m_view.reset(sf::FloatRect(
@@ -64,7 +64,6 @@ bool Game::init(const std::string settingsPath) {
     if(!m_font.loadFromFile(m_game_settings.data["engine"]["fontPath"])){
         std::cout << "Failed to load font" << std::endl;
     }
-    std::cout << m_font.getInfo().family << std::endl;
 
 
     return true;
@@ -116,15 +115,12 @@ void Game::pollEvents() {
         while(m_window.pollEvent(event)){
             switch(event.type){
                 case sf::Event::Closed:
-                    m_run = false;
+                    stop();
                     break;
                 case sf::Event::KeyPressed:
                     switch(event.key.code){
                         case sf::Keyboard::Escape:
-                            m_run = false;
-                            break;
-                        case sf::Keyboard::Slash:
-                            m_contexts_stack.pop();
+                            stop();
                             break;
                     }
                 case sf::Event::Resized:
@@ -153,6 +149,10 @@ const void Game::m_printFPS() const {
 
 const sf::Vector2u Game::getWindowSize() const {
     return m_window.getSize();
+}
+
+const sf::Vector2u Game::getViewportSize() const {
+    return { m_game_settings.data["viewport"]["width"], m_game_settings.data["viewport"]["height"] };
 }
 
 const sf::RenderWindow& Game::getRenderWindow() const {

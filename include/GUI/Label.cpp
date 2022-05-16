@@ -1,13 +1,20 @@
 #include <GUI/Label.hpp>
+#include <iostream>
 
 namespace GUI {
-    Label::Label(sf::Font* font) {
+    Label::Label() {
+        // default size
+        m_text.setCharacterSize(32);
+    }
+
+    Label::Label(sf::Font* font): Label() {
         setFont(font);
     }
 
     void Label::setFont(sf::Font* font){
         m_text.setFont(*font);
         m_font = font;
+        setTextSize(m_text.getCharacterSize());
     }
 
     void Label::setText(const std::string& newText){
@@ -37,11 +44,19 @@ namespace GUI {
                 newPos.y -= textHeight;
                 break;
         }
-        m_text.setPosition(newPos);
+        m_text.setPosition(int(newPos.x), int(newPos.y));
     }
 
     void Label::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
+        // debugs:
+        // sf::RectangleShape test;
+        // test.setFillColor(sf::Color::Transparent);
+        // test.setOutlineThickness(1.f);
+        // test.setOutlineColor(sf::Color::Red);
+        // test.setSize(sf::Vector2f(m_text.getGlobalBounds().width, m_text.getGlobalBounds().height));
+        // test.setPosition(m_text.getGlobalBounds().left, m_text.getGlobalBounds().top);
+        // target.draw(test, states);
         target.draw(m_text, states);
     }
 

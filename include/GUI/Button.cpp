@@ -10,8 +10,7 @@ namespace GUI {
         m_label.setAlignment(HAlignment::MIDDLE, VAlignment::CENTER);
     }
 
-    Button::Button(sf::Font* font, const std::string text){
-        Button();
+    Button::Button(sf::Font* font, const std::string text) : Button() {
         setFont(font);
         setText(text);
     }
@@ -30,20 +29,25 @@ namespace GUI {
 
     void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
+        
         // debugs:
         // sf::RectangleShape test;
+        // test.setPosition(-10.f, -10.f);
+        // test.setSize(sf::Vector2f(20.f, 20.f));
         // test.setFillColor(sf::Color::Transparent);
+        // test.setOutlineColor(sf::Color::Green);
         // test.setOutlineThickness(1.f);
-        // test.setOutlineColor(sf::Color::Red);
-        // test.setSize(sf::Vector2f(m_label.getBounds().width, m_label.getBounds().height));
-        // test.setPosition(m_label.getBounds().left, m_label.getBounds().top);
         // target.draw(test, states);
+
         target.draw(m_label, states);
     }
 
     void Button::update(const float& dt) {
         sf::Vector2f mousePos = m_context->getGame()->getMousePos();
-        if(m_label.getBounds().contains(mousePos)){
+        sf::FloatRect labelRect = m_label.getBounds();
+        labelRect.top += getPosition().y;
+        labelRect.left += getPosition().x;
+        if(labelRect.contains(mousePos)){
             m_label.setColor(sf::Color::Red);
             m_is_pressed = false;
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -51,6 +55,7 @@ namespace GUI {
         } else {
             m_label.setColor(sf::Color::White);
         }
+        // setPosition(mousePos);
     }
 
     const bool Button::isPressed() const {

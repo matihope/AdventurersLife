@@ -5,11 +5,11 @@
 #include <Game/Game.hpp>
 
 bool MenuContext::load() {
-    // std::cout << m_game->getFont()->getInfo().family << std::endl;
-    // m_play_btn->setFont(m_game()->getFont());
-    // m_play_btn->setText("Play");
-    // m_play_btn->setPosition(m_game->getWindowSize().x / 2, m_game->getWindowSize().y / 2);
-    // addUpdatable(m_play_btn);
+    m_play_btn = std::make_shared<GUI::Button>(m_game->getFont(), "Play");
+    m_play_btn->setPosition(int(m_game->getViewportSize().x / 2), int(m_game->getViewportSize().y / 2));
+    m_play_btn->setTextSize(32);
+    sprites.addSprite(m_play_btn, 0);
+    addUpdatable(m_play_btn);
 
     return true;
 }
@@ -17,17 +17,17 @@ bool MenuContext::load() {
 void MenuContext::update(const float& dt) {
     Context::update(dt);
 
-    // if(m_play_btn->isPressed()) {
-    //     m_game->popContext();
-    //     auto game_context = std::make_shared<GameContext>();
+    if(m_play_btn->isPressed()) {
+        m_game->popContext();
+        auto game_context = std::make_shared<GameContext>();
 
-    //     auto map = std::make_shared<TileMap>();
-    //     if(!map->load("../worlds/world.json"))
-    //         std::cout << "Could not load world.json. Make sure world is inside the worlds folder.\n";
-    //     else
-    //         game_context->addTileMap(map);
+        auto map = std::make_shared<TileMap>();
+        if(!map->load("../worlds/world.json"))
+            std::cout << "Could not load world.json. Make sure world is inside the worlds folder.\n";
+        else
+            game_context->addTileMap(map);
 
-    //     m_game->addContext(game_context);
-    // }
+        m_game->addContext(game_context);
+    }
 
 }

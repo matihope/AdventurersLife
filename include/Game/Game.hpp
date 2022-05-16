@@ -41,6 +41,7 @@ class Game {
         void stop();
         const bool isRunning() const;
         const sf::Vector2u getWindowSize() const;
+        const sf::Vector2u getViewportSize() const;
         const sf::RenderWindow& getRenderWindow() const;
         void updateViewportSize();
         void addContext(std::shared_ptr<Context> newContext);

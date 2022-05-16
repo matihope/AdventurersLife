@@ -24,7 +24,7 @@ namespace GUI {
         sf::Text m_text;
 
         public:
-            Label() {};
+            Label();
             Label(sf::Font* font);
             void setFont(sf::Font* font);
             void setText(const std::string& text);

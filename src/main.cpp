@@ -10,8 +10,8 @@ int main(){
         return 1;
 
     auto menuContext = std::make_shared<MenuContext>();
-    menuContext->load();
     game.addContext(menuContext);
+    menuContext->load();
 
     while(game.isRunning()){
         game.pollEvents();
