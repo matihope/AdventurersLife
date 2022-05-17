@@ -2,14 +2,14 @@
 #define UPDATABLE_H
 #include <memory>
 
-class Context;
+class Scene;
 
 class Updatable {
     protected:
-        Context* m_context;
+        Scene* m_scene;
 
     public:
-        void addContext(Context* context);
+        void addScene(Scene* scene);
         virtual void update(const float& dt) = 0;
         virtual void physicsUpdate(const float& dt) {};
         virtual void ready() {};

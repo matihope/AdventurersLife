@@ -1,10 +1,10 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <Contexts/Context.hpp>
+#include <Scene/Scene.hpp>
 #include <GUI/GUI.hpp>
 
-class MenuContext : public Context {
+class MenuScene : public Scene {
     std::shared_ptr<GUI::Button> m_play_btn;
 
     public:

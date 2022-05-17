@@ -1,32 +1,32 @@
 #include <Game/Game.hpp>
-#include <Contexts/Context.hpp>
+#include <Scene/Scene.hpp>
 
-void Context::update(const float& dt){
+void Scene::update(const float& dt){
     for(auto& updatable : m_updatables){
         updatable->update(dt);
     }
 }
 
-void Context::physicsUpdate(const float& dt){
+void Scene::physicsUpdate(const float& dt){
     for(auto& updatable : m_updatables){
         updatable->physicsUpdate(dt);
     }
 }
 
-void Context::draw(sf::RenderTarget& target){
+void Scene::draw(sf::RenderTarget& target){
     target.draw(sprites);
 }
 
-void Context::addUpdatable(std::shared_ptr<Updatable> updatable){
-    updatable->addContext(this);
+void Scene::addUpdatable(std::shared_ptr<Updatable> updatable){
+    updatable->addScene(this);
     updatable->ready();
     m_updatables.push_back(std::move(updatable));
 }
 
-void Context::addGame(Game* game){
+void Scene::addGame(Game* game){
     m_game = game;
 }
 
-Game* Context::getGame() const {
+Game* Scene::getGame() const {
     return m_game;
 }

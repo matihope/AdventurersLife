@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <Game/Game.hpp>
-#include <Contexts/MenuContext.hpp>
 #include <memory>
+#include <Scene/MenuScene.hpp>
 
 int main(){
 
@@ -9,9 +9,9 @@ int main(){
     if(!game.init("settings.json"))
         return 1;
 
-    auto menuContext = std::make_shared<MenuContext>();
-    game.addContext(menuContext);
-    menuContext->load();
+    auto menuScene = std::make_shared<MenuScene>();
+    game.addScene(menuScene);
+    menuScene->load();
 
     while(game.isRunning()){
         game.pollEvents();

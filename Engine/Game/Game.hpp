@@ -8,7 +8,7 @@
 #include <iostream>
 #include <stack>
 
-class Context;
+class Scene;
 
 class Game {
     // varibles
@@ -22,7 +22,7 @@ class Game {
     sf::Clock m_clock;
     JsonBridge m_game_settings;
     sf::RenderWindow m_window;
-    std::stack<std::shared_ptr<Context>> m_contexts_stack;
+    std::stack<std::shared_ptr<Scene>> m_scenes_stack;
     sf::View m_view;
     sf::RenderTexture m_draw_target;
     sf::Sprite m_draw_target_sprite;
@@ -44,8 +44,8 @@ class Game {
         const sf::Vector2u getViewportSize() const;
         const sf::RenderWindow& getRenderWindow() const;
         void updateViewportSize();
-        void addContext(std::shared_ptr<Context> newContext);
-        void popContext();
+        void addScene(std::shared_ptr<Scene> newScene);
+        void popScene();
         sf::Vector2f getMousePos();
         sf::Font* getFont();
 };

@@ -1,10 +1,10 @@
-#ifndef GAMECONTEXT_H
-#define GAMECONTEXT_H
+#ifndef GAMESCENE_H
+#define GAMESCENE_H
 #include <SFML/Graphics.hpp>
-#include <Contexts/Context.hpp>
+#include <Scene/Scene.hpp>
 #include <TileMap/TileMap.hpp>
 
-class GameContext : public Context {
+class GameScene : public Scene {
     std::shared_ptr<TileMap> m_tile_map;
 
     public:

@@ -1,5 +1,5 @@
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#ifndef SCENE_H
+#define SCENE_H
 #include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
 #include <DrawLayers/DrawLayers.hpp>
@@ -7,8 +7,8 @@
 class Game;
 
 // there is no need to inherit from updatable since it's the heighest in the hierarchy
-// also updatable has a pointer to a parent context
-class Context {
+// also updatable has a pointer to a parent scene
+class Scene {
     protected:
         Game* m_game;
         std::vector<std::shared_ptr<Updatable>> m_updatables;

@@ -1,6 +1,6 @@
 #include <GUI/Button.hpp>
 #include <Updatable/Updatable.hpp>
-#include <Contexts/Context.hpp>
+#include <Scene/Scene.hpp>
 #include <Game/Game.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -29,7 +29,7 @@ namespace GUI {
 
     void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
-        
+
         // debugs:
         // sf::RectangleShape test;
         // test.setPosition(-10.f, -10.f);
@@ -43,7 +43,7 @@ namespace GUI {
     }
 
     void Button::update(const float& dt) {
-        sf::Vector2f mousePos = m_context->getGame()->getMousePos();
+        sf::Vector2f mousePos = m_scene->getGame()->getMousePos();
         sf::FloatRect labelRect = m_label.getBounds();
         labelRect.top += getPosition().y;
         labelRect.left += getPosition().x;

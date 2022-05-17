@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <Contexts/Context.hpp>
+#include <Scene/Scene.hpp>
 #include <Game/Game.hpp>
 #include <iterator>
 #include <iostream>
@@ -73,8 +73,8 @@ void Game::draw() {
     m_window.clear(sf::Color(21, 21, 21));
     m_draw_target.clear(sf::Color(21, 21, 21));
 
-    if(!m_contexts_stack.empty())
-        m_contexts_stack.top()->draw(m_draw_target);
+    if(!m_scenes_stack.empty())
+        m_scenes_stack.top()->draw(m_draw_target);
 
     m_draw_target.display();
     m_draw_target_sprite.setTexture(m_draw_target.getTexture());
@@ -86,13 +86,13 @@ void Game::update() {
     m_dt = m_clock.restart().asSeconds();
 
 
-    if(!m_contexts_stack.empty())
-        m_contexts_stack.top()->update(m_dt);
+    if(!m_scenes_stack.empty())
+        m_scenes_stack.top()->update(m_dt);
 
     m_physics_update_counter += m_dt;
     if(m_physics_update_counter >= m_physics_update_call_freq){
-        if(!m_contexts_stack.empty())
-            m_contexts_stack.top()->physicsUpdate(m_physics_update_call_freq);
+        if(!m_scenes_stack.empty())
+            m_scenes_stack.top()->physicsUpdate(m_physics_update_call_freq);
         m_physics_update_counter -= m_physics_update_call_freq;
     }
 
@@ -100,14 +100,14 @@ void Game::update() {
 
 }
 
-void Game::addContext(std::shared_ptr<Context> newState) {
+void Game::addScene(std::shared_ptr<Scene> newState) {
     newState->addGame(this);
-    m_contexts_stack.push(std::move(newState));
+    m_scenes_stack.push(std::move(newState));
 }
 
-void Game::popContext() {
-    m_contexts_stack.top()->kill();
-    m_contexts_stack.pop();
+void Game::popScene() {
+    m_scenes_stack.top()->kill();
+    m_scenes_stack.pop();
 }
 
 void Game::pollEvents() {
