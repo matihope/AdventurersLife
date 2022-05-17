@@ -1,7 +1,5 @@
-#ifndef GUI_H
-#define GUI_H
+#pragma once
 
 #include <GUI/Label.hpp>
 #include <GUI/Button.hpp>
 
-#endif

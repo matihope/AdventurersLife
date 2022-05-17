@@ -1,6 +1,7 @@
 set(ENGINE_SOURCES
     AnimatedSprite/AnimatedSprite.cpp AnimatedSprite/AnimatedSprite.hpp
     DrawLayers/DrawLayers.cpp DrawLayers/DrawLayers.hpp
+    Entity/Entity.cpp Entity/Entity.hpp
     Game/Game.cpp Game/Game.hpp
     GUI/Label.cpp GUI/Label.hpp
     GUI/Button.cpp GUI/Button.hpp

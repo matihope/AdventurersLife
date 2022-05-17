@@ -1,9 +1,6 @@
-#ifndef LABEL_H
-#define LABEL_H
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
-
-
 namespace GUI {
     enum class HAlignment {
         LEFT,
@@ -35,6 +32,3 @@ namespace GUI {
             const sf::FloatRect getBounds() const;
     };
 }
-
-
-#endif

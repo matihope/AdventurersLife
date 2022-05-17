@@ -44,18 +44,23 @@ namespace GUI {
 
     void Button::update(const float& dt) {
         sf::Vector2f mousePos = m_scene->getGame()->getMousePos();
-        sf::FloatRect labelRect = m_label.getBounds();
-        labelRect.top += getPosition().y;
-        labelRect.left += getPosition().x;
-        if(labelRect.contains(mousePos)){
-            m_label.setColor(sf::Color::Red);
-            m_is_pressed = false;
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        m_bounds = m_label.getBounds();
+        m_bounds.top += getPosition().y;
+        m_bounds.left += getPosition().x;
+        m_is_highlighted = false;
+        if(m_bounds.contains(mousePos)){
+            m_label.setColor(m_color_hover);
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+                m_is_highlighted = true;
+                m_label.setColor(m_color_highlight);
+            }
+            else if(m_was_highlighted_previously){
                 m_is_pressed = true;
+            }
         } else {
-            m_label.setColor(sf::Color::White);
+            m_label.setColor(m_color_normal);
         }
-        // setPosition(mousePos);
+        m_was_highlighted_previously = m_is_highlighted;
     }
 
     const bool Button::isPressed() const {

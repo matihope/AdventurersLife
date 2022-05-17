@@ -1,5 +1,4 @@
-#ifndef SCENE_H
-#define SCENE_H
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
 #include <DrawLayers/DrawLayers.hpp>
@@ -23,5 +22,3 @@ class Scene {
         virtual void addUpdatable(std::shared_ptr<Updatable> updatable);
         virtual void kill() {};
 };
-
-#endif

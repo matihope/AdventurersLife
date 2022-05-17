@@ -1,5 +1,4 @@
-#ifndef GAMESCENE_H
-#define GAMESCENE_H
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <Scene/Scene.hpp>
 #include <TileMap/TileMap.hpp>
@@ -12,5 +11,3 @@ class GameScene : public Scene {
         void draw(sf::RenderTarget& target);
         void update(const float& dt);
 };
-
-#endif

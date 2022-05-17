@@ -1,5 +1,5 @@
 #include <Game/Game.hpp>
-#include "GameScene.hpp"
+#include <Scene/GameScene.hpp>
 
 void GameScene::update(const float& dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)){

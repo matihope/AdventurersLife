@@ -1,5 +1,4 @@
-#ifndef TILEMAP_H
-#define TILEMAP_H
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <JsonBridge/JsonBridge.hpp>
 #include <DrawLayers/DrawLayers.hpp>
@@ -23,5 +22,3 @@ class TileMap : public sf::Drawable, public Updatable {
         void update(const float& dt) override;
         void ready() override {};
 };
-
-#endif

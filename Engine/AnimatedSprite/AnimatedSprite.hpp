@@ -1,5 +1,4 @@
-#ifndef ANIMATEDSPRITE_H
-#define ANIMATEDSPRITE_H
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
 #include <vector>
@@ -37,5 +36,3 @@ class AnimatedSprite : public sf::Sprite, public Updatable {
         void resume();
         const std::vector<std::string> getAnimationNames() const;
 };
-
-#endif

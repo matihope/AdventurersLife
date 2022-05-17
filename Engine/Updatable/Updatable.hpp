@@ -1,5 +1,4 @@
-#ifndef UPDATABLE_H
-#define UPDATABLE_H
+#pragma once
 #include <memory>
 
 class Scene;
@@ -14,4 +13,3 @@ class Updatable {
         virtual void physicsUpdate(const float& dt) {};
         virtual void ready() {};
 };
-#endif

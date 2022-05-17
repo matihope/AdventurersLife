@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <DrawLayers/DrawLayers.hpp>
 #include <Updatable/Updatable.hpp>
@@ -49,4 +48,3 @@ class Game {
         sf::Vector2f getMousePos();
         sf::Font* getFont();
 };
-#endif

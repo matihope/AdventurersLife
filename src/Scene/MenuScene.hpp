@@ -1,6 +1,4 @@
-#ifndef MENU_H
-#define MENU_H
-
+#pragma once
 #include <Scene/Scene.hpp>
 #include <GUI/GUI.hpp>
 
@@ -11,5 +9,3 @@ class MenuScene : public Scene {
         bool load();
         void update(const float& dt) override;
 };
-
-#endif
