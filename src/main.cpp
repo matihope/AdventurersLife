@@ -1,7 +1,6 @@
-#include <SFML/Graphics.hpp>
+#include <pch.h>
 #include <Game/Game.hpp>
 #include <Contexts/MenuContext.hpp>
-#include <memory>
 
 int main(){
 
