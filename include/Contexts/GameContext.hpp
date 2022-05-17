@@ -1,6 +1,5 @@
 #ifndef GAMECONTEXT_H
 #define GAMECONTEXT_H
-#include <SFML/Graphics.hpp>
 #include <Contexts/Context.hpp>
 #include <TileMap/TileMap.hpp>
 

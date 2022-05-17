@@ -1,12 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-#include <SFML/Graphics.hpp>
 #include <DrawLayers/DrawLayers.hpp>
 #include <Updatable/Updatable.hpp>
 #include <JsonBridge/JsonBridge.hpp>
-#include <memory>
-#include <iostream>
-#include <stack>
 
 class Context;
 

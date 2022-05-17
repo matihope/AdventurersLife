@@ -1,3 +1,4 @@
+#include <pch.h>
 #include <Contexts/MenuContext.hpp>
 #include <Contexts/GameContext.hpp>
 #include <TileMap/TileMap.hpp>
@@ -7,7 +8,6 @@
 bool MenuContext::load() {
     m_play_btn = std::make_shared<GUI::Button>(m_game->getFont(), "Play");
     m_play_btn->setPosition(int(m_game->getViewportSize().x / 2), int(m_game->getViewportSize().y / 2));
-    m_play_btn->setTextSize(32);
     sprites.addSprite(m_play_btn, 0);
     addUpdatable(m_play_btn);
 

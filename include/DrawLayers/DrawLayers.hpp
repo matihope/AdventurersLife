@@ -1,10 +1,9 @@
 #ifndef DRAWLAYERS_H
 #define DRAWLAYERS_H
+
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <map>
-#include <iostream>
-#include <memory>
+#include <bits/stdc++.h>
+#include <unistd.h>
 
 typedef std::shared_ptr<sf::Drawable> SpritePointer;
 typedef std::vector<SpritePointer> SpriteVector;

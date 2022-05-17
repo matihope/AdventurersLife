@@ -1,8 +1,5 @@
 #ifndef LABEL_H
 #define LABEL_H
-#include <SFML/Graphics.hpp>
-#include <memory>
-
 
 namespace GUI {
     enum class HAlignment {

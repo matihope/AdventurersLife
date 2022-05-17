@@ -1,8 +1,10 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
-#include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
 #include <DrawLayers/DrawLayers.hpp>
+
+// #include <memory>
+// #include <SFML/Graphics.hpp>
 
 class Game;
 

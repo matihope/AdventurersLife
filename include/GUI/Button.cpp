@@ -1,9 +1,8 @@
+#include <pch.h>
 #include <GUI/Button.hpp>
 #include <Updatable/Updatable.hpp>
 #include <Contexts/Context.hpp>
 #include <Game/Game.hpp>
-#include <SFML/Graphics.hpp>
-#include <iostream>
 
 namespace GUI {
     Button::Button() {
@@ -29,7 +28,7 @@ namespace GUI {
 
     void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
-        
+
         // debugs:
         // sf::RectangleShape test;
         // test.setPosition(-10.f, -10.f);

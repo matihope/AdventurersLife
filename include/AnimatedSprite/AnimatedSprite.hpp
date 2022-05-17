@@ -1,10 +1,6 @@
 #ifndef ANIMATEDSPRITE_H
 #define ANIMATEDSPRITE_H
-#include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
-#include <vector>
-#include <map>
-#include <memory>
 
 struct Frame {
     uint frameTime;

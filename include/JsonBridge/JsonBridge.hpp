@@ -1,7 +1,6 @@
 #ifndef JSONBRIDGE_H
 #define JSONBRIDGE_H
-#include <string>
-#include <nlohmann/json.hpp>
+
 class JsonBridge {
     std::string m_file_path;
     public:
@@ -11,4 +10,5 @@ class JsonBridge {
         bool saveCurrentState();
         const std::string getFilePath();
 };
+
 #endif

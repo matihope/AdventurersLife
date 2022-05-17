@@ -1,5 +1,6 @@
-#include <Game/Game.hpp>
+#include <pch.h>
 #include <Contexts/Context.hpp>
+#include <Game/Game.hpp>
 
 void Context::update(const float& dt){
     for(auto& updatable : m_updatables){

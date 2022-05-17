@@ -1,10 +1,8 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
-#include <SFML/Graphics.hpp>
 #include <JsonBridge/JsonBridge.hpp>
 #include <DrawLayers/DrawLayers.hpp>
 #include <Updatable/Updatable.hpp>
-#include <map>
 
 class TileMap : public sf::Drawable, public Updatable {
     std::string m_tilemap_path;

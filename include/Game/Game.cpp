@@ -1,8 +1,6 @@
-#include <SFML/Graphics.hpp>
+#include <pch.h>
 #include <Contexts/Context.hpp>
 #include <Game/Game.hpp>
-#include <iterator>
-#include <iostream>
 
 sf::Vector2f scaleToFit(const sf::Vector2f viewSize, const sf::Vector2u windowSize) {
     sf::Vector2f scale;

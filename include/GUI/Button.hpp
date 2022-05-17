@@ -1,10 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
-#include <SFML/Graphics.hpp>
 #include <GUI/Label.hpp>
 #include <Updatable/Updatable.hpp>
-#include <memory>
-
 namespace GUI {
     class Button : public sf::Drawable, public sf::Transformable, public Updatable {
         Label m_label;

@@ -1,6 +1,5 @@
+#include <pch.h>
 #include <AnimatedSprite/AnimatedSprite.hpp>
-#include <memory>
-#include <iostream>
 
 void AnimatedSprite::addAnimation(const Animation newAnimation, std::string name){
     m_animation_names.push_back(name);

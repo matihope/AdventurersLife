@@ -1,6 +1,6 @@
+#include <pch.h>
 #include <AnimatedSprite/AnimatedSprite.hpp>
 #include <TileMap/TileMap.hpp>
-#include <iostream>
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     m_layers.draw(target, states);

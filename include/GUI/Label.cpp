@@ -1,5 +1,5 @@
+#include <pch.h>
 #include <GUI/Label.hpp>
-#include <iostream>
 
 namespace GUI {
     Label::Label() {
