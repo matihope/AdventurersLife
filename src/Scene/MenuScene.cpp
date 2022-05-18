@@ -19,20 +19,14 @@ bool MenuScene::load() {
     return true;
 }
 
-void MenuScene::update(const float& dt) {
+void MenuScene::update(const float dt) {
     Scene::update(dt);
 
     if(m_play_btn->isPressed()) {
         m_game->popScene();
         auto game_scene = std::make_shared<GameScene>();
-
-        auto map = std::make_shared<TileMap>();
-        if(!map->load("../worlds/world.json"))
-            std::cout << "Could not load world.json. Make sure world is inside the worlds folder.\n";
-        else
-            game_scene->addTileMap(map);
-
         m_game->addScene(game_scene);
+        game_scene->load();
     }
 
 }

@@ -19,6 +19,6 @@ class TileMap : public sf::Drawable, public Updatable {
         bool reload();
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         sf::Sprite getTileTemplate(uint id) const;
-        void update(const float& dt) override;
+        void update(const float dt) override;
         void ready() override {};
 };

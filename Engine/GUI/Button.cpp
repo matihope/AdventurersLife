@@ -42,7 +42,7 @@ namespace GUI {
         target.draw(m_label, states);
     }
 
-    void Button::update(const float& dt) {
+    void Button::update(const float dt) {
         sf::Vector2f mousePos = m_scene->getGame()->getMousePos();
         m_bounds = m_label.getBounds();
         m_bounds.top += getPosition().y;

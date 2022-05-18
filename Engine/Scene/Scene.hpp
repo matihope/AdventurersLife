@@ -16,8 +16,8 @@ class Scene {
         DrawLayers sprites;
         void addGame(Game* game);
         Game* getGame() const;
-        virtual void update(const float& dt);
-        virtual void physicsUpdate(const float& dt);
+        virtual void update(const float dt);
+        virtual void physicsUpdate(const float dt);
         virtual void draw(sf::RenderTarget& target);
         virtual void addUpdatable(std::shared_ptr<Updatable> updatable);
         virtual void kill() {};

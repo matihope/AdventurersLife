@@ -11,7 +11,9 @@ std::vector<std::string> const AnimatedSprite::getAnimationNames() const {
     return m_animation_names;
 }
 
-void AnimatedSprite::update(const float& dt){
+void AnimatedSprite::update(const float dt){
+    if(m_animation_names.empty())
+        return;
 
     if(!m_is_paused)
         m_frame_time += dt * 1000;

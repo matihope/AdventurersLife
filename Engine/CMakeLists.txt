@@ -9,6 +9,9 @@ set(ENGINE_SOURCES
     Scene/Scene.cpp Scene/Scene.hpp
     TileMap/TileMap.cpp TileMap/TileMap.hpp
     Updatable/Updatable.cpp Updatable/Updatable.hpp
+    Entity/Entity.cpp Entity/Entity.hpp
+    CollisionShape/CollisionShape.cpp CollisionShape/CollisionShape.hpp
+    Math/Math.cpp Math/Math.hpp
 )
 
 add_library(Engine ${ENGINE_SOURCES})

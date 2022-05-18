@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <Scene/Scene.hpp>
 #include <Game/Game.hpp>
+#include <CollisionShape/CollisionShape.hpp>
 #include <iterator>
 #include <iostream>
 
@@ -64,7 +65,7 @@ bool Game::init(const std::string settingsPath) {
     if(!m_font.loadFromFile(m_game_settings.data["engine"]["fontPath"])){
         std::cout << "Failed to load font" << std::endl;
     }
-
+    Debug::setDebugCollisionDraw(m_game_settings.data["debug"]["drawCollisionShapes"]);
 
     return true;
 }
@@ -85,16 +86,15 @@ void Game::draw() {
 void Game::update() {
     m_dt = m_clock.restart().asSeconds();
 
-
-    if(!m_scenes_stack.empty())
-        m_scenes_stack.top()->update(m_dt);
-
     m_physics_update_counter += m_dt;
     if(m_physics_update_counter >= m_physics_update_call_freq){
         if(!m_scenes_stack.empty())
             m_scenes_stack.top()->physicsUpdate(m_physics_update_call_freq);
         m_physics_update_counter -= m_physics_update_call_freq;
     }
+
+    if(!m_scenes_stack.empty())
+        m_scenes_stack.top()->update(m_dt);
 
     m_printFPS();
 

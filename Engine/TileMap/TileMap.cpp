@@ -96,7 +96,7 @@ sf::Sprite TileMap::getTileTemplate(uint id) const {
     return *m_tile_templates.at(id);
 }
 
-void TileMap::update(const float& dt){
+void TileMap::update(const float dt){
     for(auto& updatable: m_updatables)
         updatable->update(dt);
 }

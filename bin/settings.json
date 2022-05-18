@@ -1,16 +1,17 @@
 {
     "window": {
-        "width": 800,
-        "height": 600,
+        "width": 1280,
+        "height": 720,
         "title": "Adventurer's Life!",
         "vsync": true
     },
     "viewport": {
-        "width": 320,
-        "height": 240
+        "width": 384,
+        "height": 216
     },
     "debug": {
-        "printFPS": false
+        "printFPS": false,
+        "drawCollisionShapes": false
     },
     "engine": {
         "physicsUpdateCallFreq": 60,
