@@ -3,6 +3,7 @@
 #include <DrawLayers/DrawLayers.hpp>
 #include <Updatable/Updatable.hpp>
 #include <JsonBridge/JsonBridge.hpp>
+#include <GUI/Label.hpp>
 #include <memory>
 #include <iostream>
 #include <stack>
@@ -11,8 +12,10 @@ class Scene;
 
 class Game {
     // varibles
-    float m_dt = 0; // delta time
     bool m_run = true;
+    float m_dt = 0; // delta time
+    double m_fps_sum = 0.0;
+    uint m_fps_frame_count = 0;
     bool m_enable_print_fps = false;
     float m_physics_update_call_freq;
     float m_physics_update_counter = 0.f;
@@ -26,9 +29,7 @@ class Game {
     sf::RenderTexture m_draw_target;
     sf::Sprite m_draw_target_sprite;
     sf::Font m_font;
-
-    // funtcions
-    const void m_printFPS() const;
+    GUI::Label m_fps_label;
 
     public:
         ~Game();

@@ -29,9 +29,9 @@ class AnimatedSprite : public sf::Sprite, public Updatable {
 
 
     public:
-        void update(const float dt) override;
-        void addAnimation(const Animation newAnimation, std::string animationName);
-        void play(const std::string animationName);
+        void update(const float& dt) override;
+        void addAnimation(const Animation& newAnimation, const std::string& animationName);
+        void play(const std::string& animationName);
         void pause();
         void resume();
         const std::vector<std::string> getAnimationNames() const;

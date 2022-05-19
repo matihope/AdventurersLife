@@ -12,6 +12,7 @@ set(ENGINE_SOURCES
     Entity/Entity.cpp Entity/Entity.hpp
     CollisionShape/CollisionShape.cpp CollisionShape/CollisionShape.hpp
     Math/Math.cpp Math/Math.hpp
+    Tile/Tile.cpp Tile/Tile.hpp
 )
 
 add_library(Engine ${ENGINE_SOURCES})

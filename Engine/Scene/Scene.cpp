@@ -1,7 +1,7 @@
 #include <Game/Game.hpp>
 #include <Scene/Scene.hpp>
 
-void Scene::update(const float dt){
+void Scene::update(const float& dt){
     for(auto& updatable : m_updatables){
         updatable->update(dt);
     }
