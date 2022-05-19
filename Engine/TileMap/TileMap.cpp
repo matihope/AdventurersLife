@@ -1,9 +1,10 @@
 #include <AnimatedSprite/AnimatedSprite.hpp>
 #include <TileMap/TileMap.hpp>
+#include <Tile/Tile.hpp>
 #include <iostream>
 
 void TileMap::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    m_layers.draw(target, states);
+    target.draw(m_layers, states);
 }
 
 bool TileMap::load(const std::string& mapFile){
@@ -22,20 +23,21 @@ bool TileMap::load(const std::string& mapFile){
         texture->loadFromFile(m_map_data.data["tilesets"][i]["image"]);
 
         // create presets
-        uint fileTileId = m_map_data.data["tilesets"][i]["firstgid"];
+        uint firstTileId = m_map_data.data["tilesets"][i]["firstgid"];
         uint tilesX = m_map_data.data["tilesets"][i]["columns"];
         uint tilesY = int(m_map_data.data["tilesets"][i]["tilecount"]) / tilesX;
         for(int y = 0; y < tilesY; ++y){
             for(int x = 0; x < tilesX; ++x){
-                auto tile_template = std::make_shared<sf::Sprite>();
-                tile_template->setTexture(*texture);
-                tile_template->setTextureRect(sf::IntRect(x * tileW, y * tileH, tileW, tileH));
-                m_tile_templates[fileTileId + x + y * tilesX] = tile_template;
+                Tile tile_template;
+                tile_template.setTexture(*texture);
+                tile_template.setTextureRect(sf::IntRect(x * tileW, y * tileH, tileW, tileH));
+                m_tile_templates[firstTileId + x + y * tilesX] = tile_template;
             }
         }
 
-        // create all animated sprites
+        // add special features
         if(m_map_data.data["tilesets"][i].contains("tiles")){
+            // create all animated sprites
             for(auto tile: m_map_data.data["tilesets"][i]["tiles"]){
                 if(!tile.contains("animation"))
                     continue;
@@ -46,15 +48,47 @@ bool TileMap::load(const std::string& mapFile){
                     animation.frames.push_back(
                         {
                             uint(frame["duration"]),
-                            m_tile_templates[int(frame["tileid"]) + fileTileId]->getTextureRect()
+                            m_tile_templates[int(frame["tileid"]) + firstTileId].getTextureRect()
                         }
                     );
                 }
-                auto animated = std::make_shared<AnimatedSprite>();
-                animated->addAnimation(animation, "base");
-                animated->play("base");
-                m_tile_templates[int(tile["id"]) + fileTileId] = animated;
-                m_is_animated[int(tile["id"]) + fileTileId] = true;
+                m_tile_templates[int(tile["id"]) + firstTileId].addAnimation(animation);
+            }
+            // add collisions to tiles
+            for(auto tile: m_map_data.data["tilesets"][i]["tiles"]){
+                if(!tile.contains("objectgroup"))
+                    continue;
+
+                // iterate through all collision shapes
+                if(tile["objectgroup"]["objects"].size() != 1){
+                    std::cout << "ERROR: Tile has many collision shapes..." << std::endl;
+                    continue;
+                }
+
+                auto& cs_data = tile["objectgroup"]["objects"][0]; // collision_shape_data
+                CollisionShape shape;
+                std::vector<sf::Vector2f> points;
+                float x = roundf(cs_data["x"]);
+                float y = roundf(cs_data["y"]);
+                if(cs_data.contains("polygon")){
+                    for(auto& point : cs_data["polygon"]){
+                        points.push_back({
+                            roundf(point["x"]) + x,
+                            roundf(point["y"]) + y
+                        });
+                    }
+                } else {
+                    // rectangle
+                    float width = roundf(cs_data["width"]);
+                    float height = roundf(cs_data["height"]);
+                    points.push_back({x, y});
+                    points.push_back({x + width, y});
+                    points.push_back({x + width, y + height});
+                    points.push_back({x, y + height});
+                }
+                shape.setShape(points);
+                m_tile_templates[int(tile["id"]) + firstTileId].setCollisionShape(shape);
+
             }
         }
 
@@ -62,7 +96,7 @@ bool TileMap::load(const std::string& mapFile){
     }
     // layers
     for(int i = 0; i < m_map_data.data["layers"].size(); ++i){
-        if(m_map_data.data["layers"][i]["type"] != "tilelayer")
+        if(m_map_data.data["layers"][i]["type"] != "tilelayer" || m_map_data.data["layers"][i]["visible"] == false)
             continue;
         int layerWidth = m_map_data.data["layers"][i]["width"];
         int layerHeight = m_map_data.data["layers"][i]["height"];
@@ -76,27 +110,29 @@ bool TileMap::load(const std::string& mapFile){
                 continue;
 
             // copy tile from template and locate it correctly
-            auto tile = std::make_shared<sf::Sprite>(getTileTemplate(tileId));
-            if(m_is_animated[tileId]){
-                // Some wild stuff going on here... but it works tho
-                auto other = std::dynamic_pointer_cast<AnimatedSprite>(m_tile_templates[tileId]);
-                auto animatedTile = std::make_shared<AnimatedSprite>(*other);
-                m_updatables.push_back(animatedTile);
-                tile = std::dynamic_pointer_cast<sf::Sprite>(animatedTile);
-            }
+            auto tile = std::make_shared<Tile>(getTileTemplate(tileId));
+            // if(tile->isAnimated())
+            //     m_updatables.push_back(tile);
             tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
-            m_layers.addSprite(std::move(tile), i);
+            // m_layers.addSprite(std::move(tile), i);
+            if(!tile->isAnimated()) {
+                auto sp = std::make_shared<sf::Sprite>();
+                sp->setTexture(*m_tile_templates[tileId].getTexture());
+                sp->setTextureRect(tile->getTextureRect());
+                sp->setPosition(tile->getPosition());
+                m_layers.addSprite(std::move(tile), i);
+            }
 
         }
     }
     return true;
 }
 
-sf::Sprite TileMap::getTileTemplate(uint id) const {
-    return *m_tile_templates.at(id);
+Tile TileMap::getTileTemplate(uint id) const {
+    return m_tile_templates.at(id);
 }
 
-void TileMap::update(const float dt){
+void TileMap::update(const float& dt){
     for(auto& updatable: m_updatables)
         updatable->update(dt);
 }
@@ -106,7 +142,6 @@ bool TileMap::reload(){
     m_layers = DrawLayers();
     m_textures.clear();
     m_tile_templates.clear();
-    m_is_animated.clear();
     m_updatables.clear();
     return load(m_tilemap_path);
 }

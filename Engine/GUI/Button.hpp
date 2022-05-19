@@ -23,7 +23,7 @@ namespace GUI {
             void setFont(sf::Font* font);
             void setText(const std::string newText);
             void setTextSize(uint newSize);
-            virtual void update(const float dt) override;
+            virtual void update(const float& dt) override;
             void draw(sf::RenderTarget& target, sf::RenderStates states) const;
             const bool isPressed() const;
     };

@@ -9,7 +9,7 @@ class Entity : public sf::Drawable, public sf::Transformable, public Updatable {
         AnimatedSprite m_animation;
 
     public:
-        virtual void update(const float dt);
+        virtual void update(const float& dt);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 };

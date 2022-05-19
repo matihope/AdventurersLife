@@ -2,7 +2,7 @@
 #include <Scene/GameScene.hpp>
 #include <Player/Player.hpp>
 
-void GameScene::update(const float dt) {
+void GameScene::update(const float& dt) {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
         m_tile_map->reload();
     }

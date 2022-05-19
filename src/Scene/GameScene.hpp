@@ -12,5 +12,5 @@ class GameScene : public Scene {
         void load();
         void addTileMap(std::shared_ptr<TileMap> tileMap);
         void draw(sf::RenderTarget& target);
-        void update(const float dt);
+        void update(const float& dt);
 };

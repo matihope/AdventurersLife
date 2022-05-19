@@ -1,6 +1,8 @@
 #include <DrawLayers/DrawLayers.hpp>
+#include <CollisionShape/CollisionShape.hpp>
 #include <iterator>
 
+bool dr = false;
 void DrawLayers::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     for(auto it = m_background_sprites.begin(); it != m_background_sprites.end(); ++it) {

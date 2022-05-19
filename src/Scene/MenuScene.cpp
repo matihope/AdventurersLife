@@ -19,7 +19,7 @@ bool MenuScene::load() {
     return true;
 }
 
-void MenuScene::update(const float dt) {
+void MenuScene::update(const float& dt) {
     Scene::update(dt);
 
     if(m_play_btn->isPressed()) {
