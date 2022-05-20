@@ -19,7 +19,7 @@ bool TileMap::load(const std::string& mapFile){
     for(int i = 0; i < m_map_data.data["tilesets"].size(); i++) {
 
         // load texture from file
-        std::unique_ptr<sf::Texture> texture = std::make_unique<sf::Texture>();
+        auto texture = std::make_shared<sf::Texture>();
         texture->loadFromFile(m_map_data.data["tilesets"][i]["image"]);
 
         // create presets
@@ -43,7 +43,7 @@ bool TileMap::load(const std::string& mapFile){
                     continue;
 
                 Animation animation;
-                animation.texture = *texture;
+                animation.texture = texture;
                 for(auto& frame: tile["animation"]){
                     animation.frames.push_back(
                         {
@@ -111,17 +111,10 @@ bool TileMap::load(const std::string& mapFile){
 
             // copy tile from template and locate it correctly
             auto tile = std::make_shared<Tile>(getTileTemplate(tileId));
-            // if(tile->isAnimated())
-            //     m_updatables.push_back(tile);
+            if(tile->isAnimated())
+                m_updatables.push_back(tile);
             tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
-            // m_layers.addSprite(std::move(tile), i);
-            if(!tile->isAnimated()) {
-                auto sp = std::make_shared<sf::Sprite>();
-                sp->setTexture(*m_tile_templates[tileId].getTexture());
-                sp->setTextureRect(tile->getTextureRect());
-                sp->setPosition(tile->getPosition());
-                m_layers.addSprite(std::move(tile), i);
-            }
+            m_layers.addSprite(std::move(tile), i);
 
         }
     }

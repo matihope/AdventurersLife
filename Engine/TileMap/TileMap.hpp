@@ -13,7 +13,7 @@ class TileMap : public sf::Drawable, public Updatable {
     JsonBridge m_map_data;
     DrawLayers m_layers;
     std::map<uint, Tile> m_tile_templates;
-    std::vector<std::unique_ptr<sf::Texture>> m_textures;
+    std::vector<std::shared_ptr<sf::Texture>> m_textures;
     std::vector<std::shared_ptr<Updatable>> m_updatables;
 
     public:

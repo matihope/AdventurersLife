@@ -27,11 +27,6 @@ const sf::Texture* Tile::getTexture() const {
 
 void Tile::setTextureRect(const sf::IntRect& rect) {
     m_sprite.setTextureRect(rect);
-    Animation animation;
-    animation.texture = *m_sprite.getTexture();
-    animation.frames.push_back({100, rect});
-    m_sprite.addAnimation(animation, "base");
-    m_sprite.play("base");
 }
 
 const sf::IntRect& Tile::getTextureRect() const {

@@ -11,7 +11,7 @@ struct Frame {
 };
 
 struct Animation {
-    sf::Texture texture;
+    std::shared_ptr<sf::Texture> texture;
     std::vector<Frame> frames;
 };
 
