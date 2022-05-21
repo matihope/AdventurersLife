@@ -12,7 +12,7 @@ void DrawLayers::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
-void DrawLayers::addSprites(SpriteVector& sprites, uint drawOrder){
+void DrawLayers::addSprites(SpriteVector& sprites, unsigned int drawOrder){
 
     // function usage example outside this class:
 
@@ -28,6 +28,6 @@ void DrawLayers::addSprites(SpriteVector& sprites, uint drawOrder){
     );
 }
 
-void DrawLayers::addSprite(SpritePointer sprite, uint drawOrder){
+void DrawLayers::addSprite(SpritePointer sprite, unsigned int drawOrder){
     m_background_sprites[drawOrder].push_back(std::move(sprite));
 }

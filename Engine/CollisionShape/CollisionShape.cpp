@@ -16,7 +16,7 @@ CollisionShape::CollisionShape() {
 void CollisionShape::setShape(const std::vector<sf::Vector2f> points) {
     m_shape = points;
     m_shape_repr.setPointCount(points.size());
-    for(int i = 0; i < points.size(); ++i)
+    for(size_t i = 0; i < points.size(); ++i)
         m_shape_repr.setPoint(i, points[i]);
 }
 

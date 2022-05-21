@@ -29,6 +29,9 @@ namespace GUI {
         int textHeight = m_text.getGlobalBounds().height;
         sf::Vector2f newPos(-m_text.getLocalBounds().left, -m_text.getLocalBounds().top);
         switch (m_halignment) {
+            case HAlignment::LEFT:
+                // nothing to do
+                break;
             case HAlignment::MIDDLE:
                 newPos.x -= textWidth / 2;
                 break;
@@ -37,6 +40,9 @@ namespace GUI {
                 break;
         }
         switch (m_valignment) {
+            case VAlignment::TOP:
+                // nothing to do
+                break;
             case VAlignment::CENTER:
                 newPos.y -= textHeight / 2;
                 break;
@@ -60,7 +66,7 @@ namespace GUI {
         target.draw(m_text, states);
     }
 
-    void Label::setTextSize(const uint newSize){
+    void Label::setTextSize(const unsigned int newSize){
         #if (SFML_VERSION_MINOR <= 5)
             // weird hack to turn off font smoothing...
             sf::Texture& texture = const_cast<sf::Texture&>(m_font->getTexture(newSize));

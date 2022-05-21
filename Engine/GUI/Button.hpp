@@ -22,9 +22,9 @@ namespace GUI {
             Button(sf::Font* font, const std::string text);
             void setFont(sf::Font* font);
             void setText(const std::string newText);
-            void setTextSize(uint newSize);
+            void setTextSize(unsigned int newSize);
             virtual void update(const float& dt) override;
             void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-            const bool isPressed() const;
+            bool isPressed() const;
     };
 }

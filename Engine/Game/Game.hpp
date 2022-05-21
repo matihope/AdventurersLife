@@ -15,7 +15,7 @@ class Game {
     bool m_run = true;
     float m_dt = 0; // delta time
     double m_fps_sum = 0.0;
-    uint m_fps_frame_count = 0;
+    unsigned int m_fps_frame_count = 0;
     bool m_enable_print_fps = false;
     float m_physics_update_call_freq;
     float m_physics_update_counter = 0.f;
@@ -39,7 +39,7 @@ class Game {
         void pollEvents();
         void setPrintFPS(const bool& printFPS);
         void stop();
-        const bool isRunning() const;
+        bool isRunning() const;
         const sf::Vector2u getWindowSize() const;
         const sf::Vector2u getViewportSize() const;
         const sf::RenderWindow& getRenderWindow() const;

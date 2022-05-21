@@ -6,7 +6,7 @@
 #include <memory>
 
 struct Frame {
-    uint frameTime;
+    unsigned int frameTime;
     sf::IntRect frameRect;
 };
 
@@ -18,7 +18,7 @@ struct Animation {
 class AnimatedSprite : public sf::Sprite, public Updatable {
     // variables
     float m_frame_time = 0.f;
-    uint m_current_frame = 0;
+    unsigned int m_current_frame = 0;
     bool m_is_paused = false;
 
     // objects

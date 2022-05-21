@@ -3,7 +3,9 @@
 void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(m_sprite, states);
-    target.draw(m_collision_shape, states);
+    #if(DEBUG)
+        target.draw(m_collision_shape, states);
+    #endif
 }
 
 void Tile::update(const float& dt){
@@ -38,10 +40,10 @@ void Tile::setCollisionShape(const CollisionShape& shape) {
     m_collision_shape = shape;
 }
 
-const bool Tile::isAnimated() const {
+bool Tile::isAnimated() const {
     return m_is_animated;
 }
 
-const bool Tile::hasCollision() const {
+bool Tile::hasCollision() const {
     return m_has_collision;
 }

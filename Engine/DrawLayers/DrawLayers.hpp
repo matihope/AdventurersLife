@@ -10,12 +10,12 @@ typedef std::vector<SpritePointer> SpriteVector;
 
 class DrawLayers : public sf::Drawable, sf::Transformable {
 
-    std::map<uint, SpriteVector> m_background_sprites;
+    std::map<unsigned int, SpriteVector> m_background_sprites;
 
     public:
         DrawLayers(){};
         ~DrawLayers(){};
-        void addSprites(SpriteVector&, uint);
-        void addSprite(SpritePointer, uint);
+        void addSprites(SpriteVector&, unsigned int);
+        void addSprite(SpritePointer, unsigned int);
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

@@ -6,6 +6,13 @@ project(AdventurersLife VERSION 0.1.0)
 find_package(SFML 2 REQUIRED window audio graphics system network)
 link_libraries(sfml-graphics sfml-window sfml-system)
 
+if (MSVC)
+# warning level 4 and all warnings as errors
+add_compile_options(/W4 /WX)
+else()
+# lots of warnings and all warnings as errors
+add_compile_options(-Wall -Wextra -pedantic -Wno-unused-parameter -Werror)
+endif()
 add_subdirectory(Engine)
 link_libraries(Engine)
 link_directories(Engine)
@@ -16,4 +23,7 @@ link_directories(Game)
 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
 add_executable(${PROJECT_NAME} main.cpp)
+target_compile_definitions(Engine PUBLIC "DEBUG=$<IF:$<CONFIG:Debug>,1,0>")
+target_compile_definitions(Game PUBLIC "DEBUG=$<IF:$<CONFIG:Debug>,1,0>")

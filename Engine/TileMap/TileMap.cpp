@@ -14,20 +14,20 @@ bool TileMap::load(const std::string& mapFile){
         return false;
     }
 
-    uint tileW = m_map_data.data["tilewidth"];
-    uint tileH = m_map_data.data["tileheight"];
-    for(int i = 0; i < m_map_data.data["tilesets"].size(); i++) {
+    unsigned int tileW = m_map_data.data["tilewidth"];
+    unsigned int tileH = m_map_data.data["tileheight"];
+    for(size_t i = 0; i < m_map_data.data["tilesets"].size(); i++) {
 
         // load texture from file
         auto texture = std::make_shared<sf::Texture>();
         texture->loadFromFile(m_map_data.data["tilesets"][i]["image"]);
 
         // create presets
-        uint firstTileId = m_map_data.data["tilesets"][i]["firstgid"];
-        uint tilesX = m_map_data.data["tilesets"][i]["columns"];
-        uint tilesY = int(m_map_data.data["tilesets"][i]["tilecount"]) / tilesX;
-        for(int y = 0; y < tilesY; ++y){
-            for(int x = 0; x < tilesX; ++x){
+        unsigned int firstTileId = m_map_data.data["tilesets"][i]["firstgid"];
+        unsigned int tilesX = m_map_data.data["tilesets"][i]["columns"];
+        unsigned int tilesY = int(m_map_data.data["tilesets"][i]["tilecount"]) / tilesX;
+        for(size_t y = 0; y < tilesY; ++y){
+            for(size_t x = 0; x < tilesX; ++x){
                 Tile tile_template;
                 tile_template.setTexture(*texture);
                 tile_template.setTextureRect(sf::IntRect(x * tileW, y * tileH, tileW, tileH));
@@ -47,7 +47,7 @@ bool TileMap::load(const std::string& mapFile){
                 for(auto& frame: tile["animation"]){
                     animation.frames.push_back(
                         {
-                            uint(frame["duration"]),
+                            (unsigned int)frame["duration"],
                             m_tile_templates[int(frame["tileid"]) + firstTileId].getTextureRect()
                         }
                     );
@@ -95,14 +95,13 @@ bool TileMap::load(const std::string& mapFile){
         m_textures.push_back(std::move(texture));
     }
     // layers
-    for(int i = 0; i < m_map_data.data["layers"].size(); ++i){
+    for(size_t i = 0; i < m_map_data.data["layers"].size(); ++i){
         if(m_map_data.data["layers"][i]["type"] != "tilelayer" || m_map_data.data["layers"][i]["visible"] == false)
             continue;
         int layerWidth = m_map_data.data["layers"][i]["width"];
-        int layerHeight = m_map_data.data["layers"][i]["height"];
 
         // individual tiles
-        for(int j = 0; j < m_map_data.data["layers"][i]["data"].size(); ++j){
+        for(size_t j = 0; j < m_map_data.data["layers"][i]["data"].size(); ++j){
             int tileId = m_map_data.data["layers"][i]["data"][j];
 
             // skip if empty
@@ -121,7 +120,7 @@ bool TileMap::load(const std::string& mapFile){
     return true;
 }
 
-Tile TileMap::getTileTemplate(uint id) const {
+Tile TileMap::getTileTemplate(unsigned int id) const {
     return m_tile_templates.at(id);
 }
 

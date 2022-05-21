@@ -23,7 +23,7 @@ namespace GUI {
         m_label.setText(newText);
     }
 
-    void Button::setTextSize(uint newSize) {
+    void Button::setTextSize(unsigned int newSize) {
         m_label.setTextSize(newSize);
     }
 
@@ -63,7 +63,7 @@ namespace GUI {
         m_was_highlighted_previously = m_is_highlighted;
     }
 
-    const bool Button::isPressed() const {
+    bool Button::isPressed() const {
         return m_is_pressed;
     }
 }

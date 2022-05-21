@@ -19,6 +19,6 @@ class Tile : public sf::Drawable, public sf::Transformable, public Updatable {
         const sf::IntRect& getTextureRect() const;
         void setCollisionShape(const CollisionShape& shape);
         void addAnimation(const Animation& animation);
-        const bool isAnimated() const;
-        const bool hasCollision() const;
+        bool isAnimated() const;
+        bool hasCollision() const;
 };

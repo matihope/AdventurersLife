@@ -26,7 +26,7 @@ namespace GUI {
             void setFont(sf::Font* font);
             void setText(const std::string& text);
             void setAlignment(HAlignment newHAlignment, VAlignment newVAlignment);
-            void setTextSize(const uint newSize);
+            void setTextSize(const unsigned int newSize);
             void setColor(const sf::Color newColor);
             void draw(sf::RenderTarget& target, sf::RenderStates states) const;
             const sf::FloatRect getBounds() const;

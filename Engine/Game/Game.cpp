@@ -55,8 +55,8 @@ bool Game::init(const std::string settingsPath) {
     m_view.reset(sf::FloatRect(
         0.f,
         0.f,
-        m_game_settings.data["viewport"]["width"],
-        m_game_settings.data["viewport"]["height"]
+        m_game_settings.data["window"]["width"],
+        m_game_settings.data["window"]["height"]
         )
     );
     updateViewportSize();
@@ -82,13 +82,13 @@ void Game::draw() {
     m_draw_target.clear(sf::Color(21, 21, 21));
 
     if(!m_scenes_stack.empty())
-        m_scenes_stack.top()->draw(m_window);
+        m_scenes_stack.top()->draw(m_draw_target);
 
     if(m_enable_print_fps)
-        m_window.draw(m_fps_label);
+        m_draw_target.draw(m_fps_label);
 
-    // m_draw_target.display();
-    // m_draw_target_sprite.setTexture(m_draw_target.getTexture());
+    m_draw_target.display();
+    m_draw_target_sprite.setTexture(m_draw_target.getTexture());
     m_window.draw(m_draw_target_sprite);
     m_window.display();
 }
@@ -141,15 +141,22 @@ void Game::pollEvents() {
                         case sf::Keyboard::Escape:
                             stop();
                             break;
+                        default:
+                            // skip any other case
+                            break;
                     }
+                    break;
                 case sf::Event::Resized:
                     updateViewportSize();
+                    break;
+                default:
+                    // skip any other case
                     break;
             }
         }
 }
 
-const bool Game::isRunning() const {
+bool Game::isRunning() const {
     return m_run;
 }
 
@@ -181,8 +188,8 @@ void Game::updateViewportSize() {
 
 sf::Vector2f Game::getMousePos() {
     sf::Vector2f pos = getRenderWindow().mapPixelToCoords(sf::Mouse::getPosition(getRenderWindow()));
-    // pos.x /= m_draw_target_sprite.getScale().x;
-    // pos.y /= m_draw_target_sprite.getScale().y;
+    pos.x /= m_draw_target_sprite.getScale().x;
+    pos.y /= m_draw_target_sprite.getScale().y;
     return pos;
 }
 
