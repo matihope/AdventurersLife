@@ -93,6 +93,8 @@
         "__tuple": "cpp",
         "locale": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "*.inc": "cpp",
+        "__availability": "cpp"
     }
 }

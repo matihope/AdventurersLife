@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <GUI/Label.hpp>
 #include <Updatable/Updatable.hpp>
+#include <CollisionShape/CollisionShape.hpp>
 #include <memory>
 
 namespace GUI {
@@ -15,7 +16,9 @@ namespace GUI {
             m_color_normal = sf::Color(255, 255, 255),
             m_color_hover = sf::Color(200, 200, 200),
             m_color_highlight = sf::Color(125, 125, 125);
-        sf::FloatRect m_bounds;
+        CollisionShape m_collision_shape;
+        bool m_has_custom_collision_shape = false;
+
 
         public:
             Button();
@@ -23,8 +26,13 @@ namespace GUI {
             void setFont(sf::Font* font);
             void setText(const std::string newText);
             void setTextSize(unsigned int newSize);
-            virtual void update(const float& dt) override;
+            void update(const float& dt) override;
             void draw(sf::RenderTarget& target, sf::RenderStates states) const;
             bool isPressed() const;
+            virtual bool isColliding(const sf::Vector2f);
+            void updateDefaultCollisionShape();
+            void setCollisionShape(const CollisionShape shape);
+            const sf::FloatRect getBounds() const;
+            void setAlignment(HAlignment newHAlignment, VAlignment newVAlignment);
     };
 }

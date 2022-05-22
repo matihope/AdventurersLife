@@ -4,11 +4,12 @@
 class Scene;
 
 class Updatable {
-    protected:
+    private:
         Scene* m_scene;
 
     public:
         void addScene(Scene* scene);
+        Scene* getScene();
         virtual void update(const float& dt) = 0;
         virtual void physicsUpdate(const float dt) {};
         virtual void ready() {};

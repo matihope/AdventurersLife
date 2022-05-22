@@ -18,4 +18,5 @@ class CollisionShape : public sf::Drawable, public sf::Transformable {
         void setShape(std::vector<sf::Vector2f> points);
         void setDraw(const bool draw);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        bool contains(const sf::Transform& parentTransform, const sf::Vector2f pos) const;
 };

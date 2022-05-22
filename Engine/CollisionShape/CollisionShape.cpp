@@ -1,4 +1,5 @@
 #include <CollisionShape/CollisionShape.hpp>
+#include <Math/Math.hpp>
 
 namespace Debug {
     bool debugDraw = false;
@@ -28,4 +29,11 @@ void CollisionShape::draw(sf::RenderTarget& target, sf::RenderStates states) con
 
 void CollisionShape::setDraw(const bool draw) {
     m_draw = draw;
+}
+
+bool CollisionShape::contains(const sf::Transform& parentTransform, const sf::Vector2f pos) const {
+    auto transformedShape = m_shape;
+    for(auto& s: transformedShape)
+        s = parentTransform.transformPoint(s);
+    return Math::isPointInsideConvex(transformedShape, pos);
 }

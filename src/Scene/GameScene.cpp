@@ -30,3 +30,7 @@ void GameScene::load() {
     sprites.addSprite(m_player, 1);
     addUpdatable(m_player);
 }
+
+std::shared_ptr<TileMap> GameScene::getTileMap() const {
+    return m_tile_map;
+}

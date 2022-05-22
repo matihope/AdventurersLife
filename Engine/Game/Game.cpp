@@ -45,20 +45,30 @@ bool Game::init(const std::string settingsPath) {
         m_game_settings.data["window"]["width"],
         m_game_settings.data["window"]["height"]
     );
-    m_draw_target.setSmooth(false);
-    float scale = std::min(
-        float(m_game_settings.data["window"]["width"]) / int(m_game_settings.data["viewport"]["width"]),
-        float(m_game_settings.data["window"]["height"]) / int(m_game_settings.data["viewport"]["height"])
-    );
-    m_draw_target_sprite.setScale(scale, scale);
 
-    m_view.reset(sf::FloatRect(
-        0.f,
-        0.f,
-        m_game_settings.data["window"]["width"],
-        m_game_settings.data["window"]["height"]
-        )
-    );
+    if(m_game_settings.data["window"]["pixelToPixel"]){
+        m_draw_target.setSmooth(false);
+        float scale = std::min(
+            float(m_game_settings.data["window"]["width"]) / int(m_game_settings.data["viewport"]["width"]),
+            float(m_game_settings.data["window"]["height"]) / int(m_game_settings.data["viewport"]["height"])
+        );
+        m_draw_target_sprite.setScale(scale, scale);
+        m_view.reset(sf::FloatRect(
+            0.f,
+            0.f,
+            m_game_settings.data["window"]["width"],
+            m_game_settings.data["window"]["height"]
+            )
+        );
+    } else {
+        m_view.reset(sf::FloatRect(
+            0.f,
+            0.f,
+            m_game_settings.data["viewport"]["width"],
+            m_game_settings.data["viewport"]["height"]
+            )
+        );
+    }
     updateViewportSize();
 
     setPrintFPS(m_game_settings.data["debug"]["printFPS"]);
@@ -81,15 +91,23 @@ void Game::draw() {
     m_window.clear(sf::Color(21, 21, 21));
     m_draw_target.clear(sf::Color(21, 21, 21));
 
-    if(!m_scenes_stack.empty())
-        m_scenes_stack.top()->draw(m_draw_target);
+    if(m_game_settings.data["window"]["pixelToPixel"]){
+        if(!m_scenes_stack.empty())
+            m_scenes_stack.top()->draw(m_draw_target);
 
-    if(m_enable_print_fps)
-        m_draw_target.draw(m_fps_label);
+        if(m_enable_print_fps)
+            m_draw_target.draw(m_fps_label);
+        m_draw_target.display();
+        m_draw_target_sprite.setTexture(m_draw_target.getTexture());
+        m_window.draw(m_draw_target_sprite);
+    } else {
+        if(!m_scenes_stack.empty())
+            m_scenes_stack.top()->draw(m_window);
 
-    m_draw_target.display();
-    m_draw_target_sprite.setTexture(m_draw_target.getTexture());
-    m_window.draw(m_draw_target_sprite);
+        if(m_enable_print_fps)
+            m_window.draw(m_fps_label);
+    }
+
     m_window.display();
 }
 
@@ -111,7 +129,8 @@ void Game::update() {
         m_fps_frame_count++;
         m_fps_sum += m_dt;
         if(m_fps_sum >= 1.f) {
-            m_fps_label.setText(std::to_string(int(m_fps_frame_count / m_fps_sum)));
+            int currentFps = round(m_fps_frame_count / m_fps_sum);
+            m_fps_label.setText(std::to_string(currentFps));
             m_fps_sum = 0.0;
             m_fps_frame_count = 0;
         }

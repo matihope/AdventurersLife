@@ -4,6 +4,7 @@
 
 class MenuScene : public Scene {
     std::shared_ptr<GUI::Button> m_play_btn;
+    std::shared_ptr<sf::Texture> background;
 
     public:
         bool load();

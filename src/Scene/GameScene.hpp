@@ -13,4 +13,6 @@ class GameScene : public Scene {
         void addTileMap(std::shared_ptr<TileMap> tileMap);
         void draw(sf::RenderTarget& target);
         void update(const float& dt);
+        std::shared_ptr<TileMap> getTileMap() const;
+
 };

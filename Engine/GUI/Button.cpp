@@ -15,40 +15,41 @@ namespace GUI {
         setText(text);
     }
 
+    void Button::setAlignment(HAlignment newHAlignment, VAlignment newVAlignment){
+        m_label.setAlignment(newHAlignment, newVAlignment);
+    }
+
+
     void Button::setFont(sf::Font* newFont) {
         m_label.setFont(newFont);
+        updateDefaultCollisionShape();
     }
 
     void Button::setText(const std::string newText){
         m_label.setText(newText);
+        updateDefaultCollisionShape();
     }
 
     void Button::setTextSize(unsigned int newSize) {
         m_label.setTextSize(newSize);
+        updateDefaultCollisionShape();
     }
 
     void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         states.transform *= getTransform();
-
-        // debugs:
-        // sf::RectangleShape test;
-        // test.setPosition(-10.f, -10.f);
-        // test.setSize(sf::Vector2f(20.f, 20.f));
-        // test.setFillColor(sf::Color::Transparent);
-        // test.setOutlineColor(sf::Color::Green);
-        // test.setOutlineThickness(1.f);
-        // target.draw(test, states);
-
         target.draw(m_label, states);
+
+        #if(DEBUG)
+            // debugs:
+            target.draw(m_collision_shape, states);
+        #endif
     }
 
     void Button::update(const float& dt) {
-        sf::Vector2f mousePos = m_scene->getGame()->getMousePos();
-        m_bounds = m_label.getBounds();
-        m_bounds.top += getPosition().y;
-        m_bounds.left += getPosition().x;
+        sf::Vector2f mousePos = getScene()->getGame()->getMousePos();
         m_is_highlighted = false;
-        if(m_bounds.contains(mousePos)){
+
+        if(isColliding(mousePos)){
             m_label.setColor(m_color_hover);
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 m_is_highlighted = true;
@@ -65,5 +66,34 @@ namespace GUI {
 
     bool Button::isPressed() const {
         return m_is_pressed;
+    }
+
+    bool Button::isColliding(const sf::Vector2f pos) {
+        return m_collision_shape.contains(getTransform(), pos);
+    }
+
+    void Button::updateDefaultCollisionShape() {
+        if(m_has_custom_collision_shape)
+            return;
+
+        sf::FloatRect bounds = getBounds();
+        CollisionShape newCollisionShape;
+        newCollisionShape.setShape({
+            {bounds.left, bounds.top},
+            {bounds.left + bounds.width, bounds.top},
+            {bounds.left + bounds.width, bounds.top + bounds.height},
+            {bounds.left, bounds.top + bounds.height}
+        });
+        m_collision_shape = newCollisionShape;
+    }
+
+    void Button::setCollisionShape(const CollisionShape shape) {
+        m_has_custom_collision_shape = true;
+        m_collision_shape = shape;
+    }
+
+    const sf::FloatRect Button::getBounds() const {
+        // override this when inheriting from Button
+        return m_label.getBounds();
     }
 }

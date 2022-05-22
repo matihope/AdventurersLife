@@ -112,6 +112,8 @@ bool TileMap::load(const std::string& mapFile){
             auto tile = std::make_shared<Tile>(getTileTemplate(tileId));
             if(tile->isAnimated())
                 m_updatables.push_back(tile);
+            if(tile->hasCollision())
+                m_collidable_tiles.push_back(tile);
             tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
             m_layers.addSprite(std::move(tile), i);
 
@@ -136,4 +138,9 @@ bool TileMap::reload(){
     m_tile_templates.clear();
     m_updatables.clear();
     return load(m_tilemap_path);
+}
+
+
+std::vector<std::shared_ptr<Tile>>& TileMap::getCollidableTiles() {
+    return m_collidable_tiles;
 }
