@@ -26,11 +26,10 @@ namespace Math {
     bool isPointInsideConvex(const std::vector<sf::Vector2f> convex, const sf::Vector2f point) {
         if(convex.size() < 3) return false;
 
-        int intersect_sign = sign(determinant(point, convex.back(), convex.front()));
-        bool has_neg = intersect_sign == -1;
-        bool has_pos = intersect_sign == 1;
-        for(size_t i = 1; i < convex.size(); i++) {
-            int now_sign = sign(determinant(point, convex[i - 1], convex[i]));
+        bool has_neg = false;
+        bool has_pos = false;
+        for(size_t i = 0; i < convex.size(); i++) {
+            int now_sign = sign(determinant(point, convex[i], convex[(i + 1) % convex.size()]));
             if(now_sign == -1) has_neg = true;
             if(now_sign == 1) has_pos = true;
             if(has_neg && has_pos)
