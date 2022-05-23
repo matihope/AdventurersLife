@@ -6,9 +6,70 @@
 #include <Game/Game.hpp>
 #include <iostream>
 
+void LoadCharacterAnimations(std::shared_ptr<sf::Texture> texture, AnimatedSprite& animation) {
+    // right
+    Animation idleRight;
+    idleRight.texture = texture;
+    idleRight.frames.push_back({100, sf::IntRect(48, 0, 16, 16)});
+    animation.addAnimation(idleRight, "idleRight");
+    animation.play("idleRight");
+    Animation walkRight;
+    walkRight.texture = texture;
+    walkRight.frames.push_back({100, sf::IntRect(48, 16, 16, 16)});
+    walkRight.frames.push_back({100, sf::IntRect(48, 32, 16, 16)});
+    walkRight.frames.push_back({100, sf::IntRect(48, 48, 16, 16)});
+    walkRight.frames.push_back({100, sf::IntRect(48, 0, 16, 16)});
+    animation.addAnimation(walkRight, "walkRight");
+
+    // left
+    Animation idleLeft;
+    idleLeft.texture = texture;
+    idleLeft.frames.push_back({100, sf::IntRect(32, 0, 16, 16)});
+    animation.addAnimation(idleLeft, "idleLeft");
+    Animation walkLeft;
+    walkLeft.texture = texture;
+    walkLeft.frames.push_back({100, sf::IntRect(32, 16, 16, 16)});
+    walkLeft.frames.push_back({100, sf::IntRect(32, 32, 16, 16)});
+    walkLeft.frames.push_back({100, sf::IntRect(32, 48, 16, 16)});
+    walkLeft.frames.push_back({100, sf::IntRect(32, 0, 16, 16)});
+    animation.addAnimation(walkLeft, "walkLeft");
+
+    // down
+    Animation idleDown;
+    idleDown.texture = texture;
+    idleDown.frames.push_back({100, sf::IntRect(0, 0, 16, 16)});
+    animation.addAnimation(idleDown, "idleDown");
+    Animation walkDown;
+    walkDown.texture = texture;
+    walkDown.frames.push_back({100, sf::IntRect(0, 16, 16, 16)});
+    walkDown.frames.push_back({100, sf::IntRect(0, 32, 16, 16)});
+    walkDown.frames.push_back({100, sf::IntRect(0, 48, 16, 16)});
+    walkDown.frames.push_back({100, sf::IntRect(0, 0, 16, 16)});
+    animation.addAnimation(walkDown, "walkDown");
+
+    // up
+    Animation idleUp;
+    idleUp.texture = texture;
+    idleUp.frames.push_back({100, sf::IntRect(16, 0, 16, 16)});
+    animation.addAnimation(idleUp, "idleUp");
+    Animation walkUp;
+    walkUp.texture = texture;
+    walkUp.frames.push_back({100, sf::IntRect(16, 16, 16, 16)});
+    walkUp.frames.push_back({100, sf::IntRect(16, 32, 16, 16)});
+    walkUp.frames.push_back({100, sf::IntRect(16, 48, 16, 16)});
+    walkUp.frames.push_back({100, sf::IntRect(16, 0, 16, 16)});
+    animation.addAnimation(walkUp, "walkUp");
+}
+
 void Player::ready() {
-    m_collision_shape.setShape({ {-8.f, -8.f}, {-8.f, 8.f}, {8.f, 8.f}, {8.f, -8.f} });
-    m_collision_shape.setDraw(true);
+    m_collision_shape.setShape({ {2.0f, 8.0f}, {14.0f, 8.f}, {14.0f, 14.0f}, {2.0f, 14.0f} });
+    // m_collision_shape.setDraw(true);
+
+    auto texture = std::make_shared<sf::Texture>();
+    texture->loadFromFile("../resources/Actor/Characters/Boy/SpriteSheet.png");
+
+    LoadCharacterAnimations(texture, m_animation);
+
 }
 
 void Player::update(const float& dt){
@@ -19,21 +80,51 @@ void Player::physicsUpdate(const float dt) {
     int move_x = sf::Keyboard::isKeyPressed(sf::Keyboard::D) - sf::Keyboard::isKeyPressed(sf::Keyboard::A);
     int move_y = sf::Keyboard::isKeyPressed(sf::Keyboard::S) - sf::Keyboard::isKeyPressed(sf::Keyboard::W);
     int rot = sf::Keyboard::isKeyPressed(sf::Keyboard::E) - sf::Keyboard::isKeyPressed(sf::Keyboard::Q);
-    sf::Vector2f move_vec = sf::Vector2f(move_x, move_y);
-    move_vec = Math::normalizeVector(move_vec);
-    float spd = 120.f;
+    sf::Vector2f moveVec = sf::Vector2f(move_x, move_y);
+    float spd = 60.f;
+    moveVec = Math::normalizeVector(moveVec);
+    moveVec *= spd * dt;
     rotate(rot);
+
     GameScene* scene = (GameScene*)getScene();
-    if(m_collision_shape.contains(getTransform(), scene->getGame()->getMousePos() - sf::Vector2f(move_x, 0) * spd * dt))
-        move_vec.x = 0;
-
-    if(m_collision_shape.contains(getTransform(), scene->getGame()->getMousePos() - sf::Vector2f(0, move_y) * spd * dt))
-        move_vec.y = 0;
-    move(move_vec * spd * dt);
-
-    // std::vector<std::shared_ptr<Tile>>& collidableTiles = scene->getTileMap()->getCollidableTiles();
-    // for(auto& tile: collidableTiles){
-    // }
-    // std::cout << m_animation.getGlobalBounds().left << " " << m_animation.getGlobalBounds().top << std::endl;
-    // std::cout << move_vec.x << " " << move_vec.y << std::endl;
+    std::vector<std::shared_ptr<Tile>>& collidableTiles = scene->getTileMap()->getCollidableTiles();
+    for(auto& tile: collidableTiles){
+        if(tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(moveVec.x, 0)))){
+            int s = Math::sign(moveVec.x);
+            while(moveVec.x * s > 0 && tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(moveVec.x, 0))))
+                moveVec.x -= s * 0.01f;
+            if(Math::sign(moveVec.x) != s)
+                moveVec.x = 0;
+            break;
+        }
+    }
+    for(auto& tile: collidableTiles){
+        if(tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(0, moveVec.y)))){
+            int s = Math::sign(moveVec.y);
+            while(moveVec.y * s > 0 && tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(0, moveVec.y))))
+                moveVec.y -= s * 0.01f;
+            if(Math::sign(moveVec.y) != s)
+                moveVec.y = 0;
+            break;
+        }
+    }
+    move(moveVec);
+    if(moveVec.x > 0)
+        m_animation.play("walkRight");
+    else if(moveVec.x < 0)
+        m_animation.play("walkLeft");
+    else if(moveVec.y > 0)
+        m_animation.play("walkDown");
+    else if(moveVec.y < 0)
+        m_animation.play("walkUp");
+    else {
+        if(m_animation.getCurrentAnimationName().find("Right") != std::string::npos)
+            m_animation.play("idleRight");
+        else if (m_animation.getCurrentAnimationName().find("Left") != std::string::npos)
+            m_animation.play("idleLeft");
+        else if (m_animation.getCurrentAnimationName().find("Down") != std::string::npos)
+            m_animation.play("idleDown");
+        else if (m_animation.getCurrentAnimationName().find("Up") != std::string::npos)
+            m_animation.play("idleUp");
+    }
 }

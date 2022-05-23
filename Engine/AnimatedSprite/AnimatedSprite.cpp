@@ -26,8 +26,12 @@ void AnimatedSprite::update(const float& dt){
 }
 
 void AnimatedSprite::play(const std::string& animationName){
+    if(m_current_animation_name == animationName)
+        return;
+
     m_current_frame = 0;
     m_frame_time = 0.f;
+    m_current_animation_name = animationName;
     m_current_animation_ptr = m_animations[animationName];
     setTexture(*(*m_current_animation_ptr).texture);
     setTextureRect((*m_current_animation_ptr).frames[m_current_frame].frameRect);
@@ -39,4 +43,8 @@ void AnimatedSprite::pause(){
 
 void AnimatedSprite::resume(){
     m_is_paused = false;
+}
+
+std::string AnimatedSprite::getCurrentAnimationName() const {
+    return m_current_animation_name;
 }

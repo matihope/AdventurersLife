@@ -16,7 +16,11 @@ class CollisionShape : public sf::Drawable, public sf::Transformable {
     public:
         CollisionShape();
         void setShape(std::vector<sf::Vector2f> points);
+        std::vector<sf::Vector2f> getShape(sf::Transform parentTransform, const sf::Vector2f& offset = sf::Vector2f(0, 0)) const;
         void setDraw(const bool draw);
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         bool contains(const sf::Transform& parentTransform, const sf::Vector2f pos) const;
+        bool intersects(const sf::Transform& parentTransform, const std::vector<sf::Vector2f>& otherShape) const;
+
+
 };

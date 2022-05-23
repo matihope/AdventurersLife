@@ -1,4 +1,5 @@
 #include <Tile/Tile.hpp>
+#include <iostream>
 
 void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
@@ -46,4 +47,8 @@ bool Tile::isAnimated() const {
 
 bool Tile::hasCollision() const {
     return m_has_collision;
+}
+
+bool Tile::intersects(const std::vector<sf::Vector2f>& shape) const {
+    return m_collision_shape.intersects(getTransform(), shape);
 }

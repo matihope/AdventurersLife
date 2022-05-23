@@ -16,6 +16,7 @@ class TileMap : public sf::Drawable, public Updatable {
     std::vector<std::shared_ptr<sf::Texture>> m_textures;
     std::vector<std::shared_ptr<Updatable>> m_updatables;
     std::vector<std::shared_ptr<Tile>> m_collidable_tiles;
+    std::vector<std::shared_ptr<Tile>> m_ysort_layer;
 
     public:
         bool load(const std::string& mapFile);
@@ -25,4 +26,5 @@ class TileMap : public sf::Drawable, public Updatable {
         void update(const float& dt) override;
         void ready() override {};
         std::vector<std::shared_ptr<Tile>>& getCollidableTiles();
+        std::vector<std::shared_ptr<Tile>>& getYSortLayerTiles();
 };

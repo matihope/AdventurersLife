@@ -21,4 +21,5 @@ class Tile : public sf::Drawable, public sf::Transformable, public Updatable {
         void addAnimation(const Animation& animation);
         bool isAnimated() const;
         bool hasCollision() const;
+        bool intersects(const std::vector<sf::Vector2f>& shape) const;
 };

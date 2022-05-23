@@ -1,5 +1,6 @@
 #include <CollisionShape/CollisionShape.hpp>
 #include <Math/Math.hpp>
+#include <iostream>
 
 namespace Debug {
     bool debugDraw = false;
@@ -9,8 +10,8 @@ namespace Debug {
 }
 
 CollisionShape::CollisionShape() {
-    m_shape_repr.setOutlineColor(m_outline_color);
-    m_shape_repr.setOutlineThickness(1.f);
+    // m_shape_repr.setOutlineColor(m_outline_color);
+    // m_shape_repr.setOutlineThickness(1.f);
     m_shape_repr.setFillColor(m_fill_color);
 }
 
@@ -36,4 +37,16 @@ bool CollisionShape::contains(const sf::Transform& parentTransform, const sf::Ve
     for(auto& s: transformedShape)
         s = parentTransform.transformPoint(s);
     return Math::isPointInsideConvex(transformedShape, pos);
+}
+
+std::vector<sf::Vector2f> CollisionShape::getShape(sf::Transform parentTransform, const sf::Vector2f& offset) const {
+    auto transformedShape = m_shape;
+    parentTransform.translate(offset);
+    for(auto& s: transformedShape)
+        s = parentTransform.transformPoint(s);
+    return transformedShape;
+}
+
+bool CollisionShape::intersects(const sf::Transform& parentTransform, const std::vector<sf::Vector2f>& otherShape) const {
+    return Math::doShapesIntersect(getShape(parentTransform), otherShape);
 }

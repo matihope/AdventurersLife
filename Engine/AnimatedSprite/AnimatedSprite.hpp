@@ -20,10 +20,10 @@ class AnimatedSprite : public sf::Sprite, public Updatable {
     float m_frame_time = 0.f;
     unsigned int m_current_frame = 0;
     bool m_is_paused = false;
+    std::string m_current_animation_name;
 
     // objects
     std::map<std::string, std::shared_ptr<Animation>> m_animations;
-    std::string m_current_animation_name;
     std::shared_ptr<Animation> m_current_animation_ptr;
     std::vector<std::string> m_animation_names;
 
@@ -35,4 +35,5 @@ class AnimatedSprite : public sf::Sprite, public Updatable {
         void pause();
         void resume();
         const std::vector<std::string> getAnimationNames() const;
+        std::string getCurrentAnimationName() const;
 };

@@ -110,12 +110,16 @@ bool TileMap::load(const std::string& mapFile){
 
             // copy tile from template and locate it correctly
             auto tile = std::make_shared<Tile>(getTileTemplate(tileId));
+            tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
             if(tile->isAnimated())
                 m_updatables.push_back(tile);
             if(tile->hasCollision())
                 m_collidable_tiles.push_back(tile);
-            tile->setPosition( (j % layerWidth) * tileW, (j / layerWidth) * tileH );
-            m_layers.addSprite(std::move(tile), i);
+
+            if(m_map_data.data["layers"][i]["name"] == "Obstacles")
+                m_ysort_layer.push_back(tile);
+            else
+                m_layers.addSprite(tile, i);
 
         }
     }
@@ -143,4 +147,8 @@ bool TileMap::reload(){
 
 std::vector<std::shared_ptr<Tile>>& TileMap::getCollidableTiles() {
     return m_collidable_tiles;
+}
+
+std::vector<std::shared_ptr<Tile>>& TileMap::getYSortLayerTiles() {
+    return m_ysort_layer;
 }
