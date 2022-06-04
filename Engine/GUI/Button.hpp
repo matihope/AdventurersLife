@@ -6,7 +6,7 @@
 #include <memory>
 
 namespace GUI {
-    class Button : public sf::Drawable, public sf::Transformable, public Updatable {
+    class Button : public GameObj, public Updatable {
         Label m_label;
         bool m_is_pressed = false;
         bool m_is_highlighted = false;

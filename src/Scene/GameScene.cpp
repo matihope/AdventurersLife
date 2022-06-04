@@ -1,6 +1,7 @@
 #include <Game/Game.hpp>
 #include <Scene/GameScene.hpp>
 #include <Player/Player.hpp>
+#include <GameObj/GameObj.hpp>
 #include <algorithm>
 
 void GameScene::update(const float& dt) {
@@ -12,15 +13,15 @@ void GameScene::update(const float& dt) {
 
 void GameScene::draw(sf::RenderTarget& target) {
     Scene::draw(target);
-    std::vector<std::pair<std::shared_ptr<sf::Transformable>, std::shared_ptr<sf::Drawable>>> ySort;
+    std::vector<std::shared_ptr<GameObj>> ySort;
     for(auto& p : getTileMap()->getYSortLayerTiles())
-        ySort.push_back({p, p});
-    ySort.push_back({m_player, m_player});
+        ySort.push_back(p);
+    ySort.push_back(m_player);
     std::sort(ySort.begin(), ySort.end(), [&](const auto& a, const auto& b){
-        return a.first->getPosition().y < b.first->getPosition().y;
+        return a->getPosition().y < b->getPosition().y;
     });
     for(auto& p: ySort) {
-        target.draw(*p.second);
+        target.draw(*p);
     }
 }
 

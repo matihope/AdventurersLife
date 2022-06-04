@@ -95,6 +95,7 @@
         "queue": "cpp",
         "stack": "cpp",
         "*.inc": "cpp",
-        "__availability": "cpp"
+        "__availability": "cpp",
+        "cfenv": "cpp"
     }
 }

@@ -3,8 +3,9 @@
 #include <AnimatedSprite/AnimatedSprite.hpp>
 #include <CollisionShape/CollisionShape.hpp>
 #include <Updatable/Updatable.hpp>
+#include <GameObj/GameObj.hpp>
 
-class Tile : public sf::Drawable, public sf::Transformable, public Updatable {
+class Tile : public GameObj, public Updatable {
     bool m_is_animated = false;
     bool m_has_collision = false;
     AnimatedSprite m_sprite;
@@ -13,7 +14,7 @@ class Tile : public sf::Drawable, public sf::Transformable, public Updatable {
     public:
         void draw(sf::RenderTarget& target, sf::RenderStates states) const;
         void update(const float& dt);
-        void setTexture(const sf::Texture& texture);
+        void setTexture(const std::string& texture);
         const sf::Texture* getTexture() const;
         void setTextureRect(const sf::IntRect& rectangle);
         const sf::IntRect& getTextureRect() const;

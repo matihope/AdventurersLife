@@ -3,8 +3,7 @@
         "width": 1280,
         "height": 720,
         "title": "Adventurer's Life!",
-        "vsync": false,
-        "pixelToPixel": false
+        "vsync": true
     },
     "viewport": {
         "width": 384,

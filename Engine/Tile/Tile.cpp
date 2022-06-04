@@ -20,7 +20,7 @@ void Tile::addAnimation(const Animation& animation) {
     m_sprite.play("base");
 }
 
-void Tile::setTexture(const sf::Texture& texture) {
+void Tile::setTexture(const std::string& texture) {
     m_sprite.setTexture(texture);
 }
 

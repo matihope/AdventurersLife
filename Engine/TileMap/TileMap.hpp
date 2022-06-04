@@ -6,14 +6,14 @@
 #include <AnimatedSprite/AnimatedSprite.hpp>
 #include <CollisionShape/CollisionShape.hpp>
 #include <Tile/Tile.hpp>
+#include <GameObj/GameObj.hpp>
 #include <map>
 
-class TileMap : public sf::Drawable, public Updatable {
+class TileMap : public GameObj, public Updatable {
     std::string m_tilemap_path;
     JsonBridge m_map_data;
     DrawLayers m_layers;
     std::map<unsigned int, Tile> m_tile_templates;
-    std::vector<std::shared_ptr<sf::Texture>> m_textures;
     std::vector<std::shared_ptr<Updatable>> m_updatables;
     std::vector<std::shared_ptr<Tile>> m_collidable_tiles;
     std::vector<std::shared_ptr<Tile>> m_ysort_layer;

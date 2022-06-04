@@ -17,7 +17,7 @@ namespace Math {
     }
 
     // here vectors are points
-    double determinant(const sf::Vector2f& tail, const::sf::Vector2f& head1, const::sf::Vector2f& head2) {
+    float determinant(const sf::Vector2f& tail, const::sf::Vector2f& head1, const::sf::Vector2f& head2) {
         return (head1.x - tail.x) * (head2.y - tail.y) - (head2.x - tail.x) * (head1.y - tail.y);
     }
 

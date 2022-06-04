@@ -240,15 +240,40 @@
                      "name":"",
                      "objects":[
                             {
-                             "height":14,
-                             "id":1,
+                             "height":0,
+                             "id":3,
                              "name":"",
+                             "polygon":[
+                                    {
+                                     "x":0,
+                                     "y":0
+                                    }, 
+                                    {
+                                     "x":-0.0377062058130395,
+                                     "y":-13.9890023566379
+                                    }, 
+                                    {
+                                     "x":-6.02880335166274,
+                                     "y":-13.9890023566379
+                                    }, 
+                                    {
+                                     "x":-12.81592039801,
+                                     "y":-11.0144016758314
+                                    }, 
+                                    {
+                                     "x":-15.9162084315266,
+                                     "y":-5.98690756742603
+                                    }, 
+                                    {
+                                     "x":-16,
+                                     "y":0
+                                    }],
                              "rotation":0,
                              "type":"",
                              "visible":true,
-                             "width":16,
-                             "x":0,
-                             "y":2
+                             "width":0,
+                             "x":16,
+                             "y":16
                             }],
                      "opacity":1,
                      "type":"objectgroup",
@@ -444,7 +469,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -469,6 +493,45 @@
                              "visible":true,
                              "width":0,
                              "x":0,
+                             "y":16
+                            }],
+                     "opacity":1,
+                     "type":"objectgroup",
+                     "visible":true,
+                     "x":0,
+                     "y":0
+                    }
+                }, 
+                {
+                 "id":433,
+                 "objectgroup":
+                    {
+                     "draworder":"index",
+                     "id":2,
+                     "name":"",
+                     "objects":[
+                            {
+                             "height":0,
+                             "id":1,
+                             "name":"",
+                             "polygon":[
+                                    {
+                                     "x":0,
+                                     "y":0
+                                    }, 
+                                    {
+                                     "x":-16.0042,
+                                     "y":-4.43676
+                                    }, 
+                                    {
+                                     "x":-16,
+                                     "y":0
+                                    }],
+                             "rotation":0,
+                             "type":"",
+                             "visible":true,
+                             "width":0,
+                             "x":16,
                              "y":16
                             }],
                      "opacity":1,
@@ -521,7 +584,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -547,7 +609,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -737,7 +798,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {
@@ -847,7 +907,6 @@
                  "objectgroup":
                     {
                      "draworder":"index",
-                     "id":2,
                      "name":"",
                      "objects":[
                             {

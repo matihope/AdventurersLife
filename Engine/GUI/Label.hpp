@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <GameObj/GameObj.hpp>
 #include <memory>
 namespace GUI {
     enum class HAlignment {
@@ -14,7 +15,7 @@ namespace GUI {
         BOTTOM
     };
 
-    class Label : public sf::Drawable, public sf::Transformable {
+    class Label : public GameObj {
         sf::Font* m_font;
         HAlignment m_halignment = HAlignment::LEFT;
         VAlignment m_valignment = VAlignment::TOP;

@@ -28,6 +28,6 @@ void DrawLayers::addSprites(SpriteVector& sprites, unsigned int drawOrder){
     );
 }
 
-void DrawLayers::addSprite(SpritePointer sprite, unsigned int drawOrder){
+void DrawLayers::addSprite(SpritePointer sprite, unsigned int drawOrder = 0){
     m_background_sprites[drawOrder].push_back(std::move(sprite));
 }

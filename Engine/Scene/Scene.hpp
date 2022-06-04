@@ -21,4 +21,5 @@ class Scene {
         virtual void draw(sf::RenderTarget& target);
         virtual void addUpdatable(std::shared_ptr<Updatable> updatable);
         virtual void kill() {};
+        virtual void handleEvent(const sf::Event& event) {};
 };

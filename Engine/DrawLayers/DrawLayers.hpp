@@ -4,11 +4,12 @@
 #include <unordered_map>
 #include <iostream>
 #include <memory>
+#include <GameObj/GameObj.hpp>
 
-typedef std::shared_ptr<sf::Drawable> SpritePointer;
+typedef std::shared_ptr<GameObj> SpritePointer;
 typedef std::vector<SpritePointer> SpriteVector;
 
-class DrawLayers : public sf::Drawable, sf::Transformable {
+class DrawLayers : public GameObj {
 
     std::map<unsigned int, SpriteVector> m_background_sprites;
 

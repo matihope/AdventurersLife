@@ -4,17 +4,18 @@
 #include <SFML/Graphics.hpp>
 #include <Scene/GameScene.hpp>
 #include <Game/Game.hpp>
+#include <ResourceManager/ResourceManager.hpp>
 #include <iostream>
 
-void LoadCharacterAnimations(std::shared_ptr<sf::Texture> texture, AnimatedSprite& animation) {
+void LoadCharacterAnimations(const std::string& texturePath, AnimatedSprite& animation) {
     // right
     Animation idleRight;
-    idleRight.texture = texture;
+    idleRight.texture = texturePath;
     idleRight.frames.push_back({100, sf::IntRect(48, 0, 16, 16)});
     animation.addAnimation(idleRight, "idleRight");
     animation.play("idleRight");
     Animation walkRight;
-    walkRight.texture = texture;
+    walkRight.texture = texturePath;
     walkRight.frames.push_back({100, sf::IntRect(48, 16, 16, 16)});
     walkRight.frames.push_back({100, sf::IntRect(48, 32, 16, 16)});
     walkRight.frames.push_back({100, sf::IntRect(48, 48, 16, 16)});
@@ -23,11 +24,11 @@ void LoadCharacterAnimations(std::shared_ptr<sf::Texture> texture, AnimatedSprit
 
     // left
     Animation idleLeft;
-    idleLeft.texture = texture;
+    idleLeft.texture = texturePath;
     idleLeft.frames.push_back({100, sf::IntRect(32, 0, 16, 16)});
     animation.addAnimation(idleLeft, "idleLeft");
     Animation walkLeft;
-    walkLeft.texture = texture;
+    walkLeft.texture = texturePath;
     walkLeft.frames.push_back({100, sf::IntRect(32, 16, 16, 16)});
     walkLeft.frames.push_back({100, sf::IntRect(32, 32, 16, 16)});
     walkLeft.frames.push_back({100, sf::IntRect(32, 48, 16, 16)});
@@ -36,11 +37,11 @@ void LoadCharacterAnimations(std::shared_ptr<sf::Texture> texture, AnimatedSprit
 
     // down
     Animation idleDown;
-    idleDown.texture = texture;
+    idleDown.texture = texturePath;
     idleDown.frames.push_back({100, sf::IntRect(0, 0, 16, 16)});
     animation.addAnimation(idleDown, "idleDown");
     Animation walkDown;
-    walkDown.texture = texture;
+    walkDown.texture = texturePath;
     walkDown.frames.push_back({100, sf::IntRect(0, 16, 16, 16)});
     walkDown.frames.push_back({100, sf::IntRect(0, 32, 16, 16)});
     walkDown.frames.push_back({100, sf::IntRect(0, 48, 16, 16)});
@@ -49,11 +50,11 @@ void LoadCharacterAnimations(std::shared_ptr<sf::Texture> texture, AnimatedSprit
 
     // up
     Animation idleUp;
-    idleUp.texture = texture;
+    idleUp.texture = texturePath;
     idleUp.frames.push_back({100, sf::IntRect(16, 0, 16, 16)});
     animation.addAnimation(idleUp, "idleUp");
     Animation walkUp;
-    walkUp.texture = texture;
+    walkUp.texture = texturePath;
     walkUp.frames.push_back({100, sf::IntRect(16, 16, 16, 16)});
     walkUp.frames.push_back({100, sf::IntRect(16, 32, 16, 16)});
     walkUp.frames.push_back({100, sf::IntRect(16, 48, 16, 16)});
@@ -65,11 +66,11 @@ void Player::ready() {
     m_collision_shape.setShape({ {2.0f, 8.0f}, {14.0f, 8.f}, {14.0f, 14.0f}, {2.0f, 14.0f} });
     // m_collision_shape.setDraw(true);
 
-    auto texture = std::make_shared<sf::Texture>();
-    texture->loadFromFile("../resources/Actor/Characters/Boy/SpriteSheet.png");
-
-    LoadCharacterAnimations(texture, m_animation);
-
+    LoadCharacterAnimations("../resources/Actor/Characters/Boy/SpriteSheet.png", m_animation);
+    m_shadow.setTexture(ResourceManager::getTexture("../resources/Actor/Characters/Shadow.png"));
+    m_shadow.setColor(sf::Color(0, 0, 0, 100));
+    m_shadow.setOrigin(m_shadow.getTexture()->getSize().x / 2.0f, m_shadow.getTexture()->getSize().y / 2.0f + 1.5f);
+    m_shadow.setPosition(sf::Vector2f(8.0f, 16.0f));
 }
 
 void Player::update(const float& dt){
@@ -127,4 +128,5 @@ void Player::physicsUpdate(const float dt) {
         else if (m_animation.getCurrentAnimationName().find("Up") != std::string::npos)
             m_animation.play("idleUp");
     }
+    scene->getGame()->setCameraCenter(getPosition());
 }

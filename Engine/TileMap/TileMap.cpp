@@ -1,4 +1,5 @@
 #include <AnimatedSprite/AnimatedSprite.hpp>
+#include <ResourceManager/ResourceManager.hpp>
 #include <TileMap/TileMap.hpp>
 #include <Tile/Tile.hpp>
 #include <iostream>
@@ -18,9 +19,8 @@ bool TileMap::load(const std::string& mapFile){
     unsigned int tileH = m_map_data.data["tileheight"];
     for(size_t i = 0; i < m_map_data.data["tilesets"].size(); i++) {
 
-        // load texture from file
-        auto texture = std::make_shared<sf::Texture>();
-        texture->loadFromFile(m_map_data.data["tilesets"][i]["image"]);
+        // get texture
+        const std::string& texture = m_map_data.data["tilesets"][i]["image"];
 
         // create presets
         unsigned int firstTileId = m_map_data.data["tilesets"][i]["firstgid"];
@@ -29,7 +29,7 @@ bool TileMap::load(const std::string& mapFile){
         for(size_t y = 0; y < tilesY; ++y){
             for(size_t x = 0; x < tilesX; ++x){
                 Tile tile_template;
-                tile_template.setTexture(*texture);
+                tile_template.setTexture(texture);
                 tile_template.setTextureRect(sf::IntRect(x * tileW, y * tileH, tileW, tileH));
                 m_tile_templates[firstTileId + x + y * tilesX] = tile_template;
             }
@@ -43,7 +43,7 @@ bool TileMap::load(const std::string& mapFile){
                     continue;
 
                 Animation animation;
-                animation.texture = texture;
+                animation.texture = m_map_data.data["tilesets"][i]["image"];
                 for(auto& frame: tile["animation"]){
                     animation.frames.push_back(
                         {
@@ -91,8 +91,6 @@ bool TileMap::load(const std::string& mapFile){
 
             }
         }
-
-        m_textures.push_back(std::move(texture));
     }
     // layers
     for(size_t i = 0; i < m_map_data.data["layers"].size(); ++i){
@@ -138,9 +136,9 @@ void TileMap::update(const float& dt){
 bool TileMap::reload(){
     m_map_data.data.clear();
     m_layers = DrawLayers();
-    m_textures.clear();
     m_tile_templates.clear();
     m_updatables.clear();
+    m_ysort_layer.clear();
     return load(m_tilemap_path);
 }
 

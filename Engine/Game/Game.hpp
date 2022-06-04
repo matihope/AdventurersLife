@@ -26,8 +26,6 @@ class Game {
     sf::RenderWindow m_window;
     std::stack<std::shared_ptr<Scene>> m_scenes_stack;
     sf::View m_view;
-    sf::RenderTexture m_draw_target;
-    sf::Sprite m_draw_target_sprite;
     sf::Font m_font;
     GUI::Label m_fps_label;
 
@@ -48,4 +46,7 @@ class Game {
         void popScene();
         sf::Vector2f getMousePos();
         sf::Font* getFont();
+        sf::View* getView();
+        bool isRectInsideView(const sf::FloatRect& rect);
+        void setCameraCenter(const sf::Vector2f& pos);
 };

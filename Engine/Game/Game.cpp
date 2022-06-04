@@ -40,35 +40,13 @@ bool Game::init(const std::string settingsPath) {
     );
     m_window.setVerticalSyncEnabled(m_game_settings.data["window"]["vsync"]);
 
-    // an intermediate draw target
-    m_draw_target.create(
-        m_game_settings.data["window"]["width"],
-        m_game_settings.data["window"]["height"]
+    m_view.reset(sf::FloatRect(
+        0.f,
+        0.f,
+        m_game_settings.data["viewport"]["width"],
+        m_game_settings.data["viewport"]["height"]
+        )
     );
-
-    if(m_game_settings.data["window"]["pixelToPixel"]){
-        m_draw_target.setSmooth(false);
-        float scale = std::min(
-            float(m_game_settings.data["window"]["width"]) / int(m_game_settings.data["viewport"]["width"]),
-            float(m_game_settings.data["window"]["height"]) / int(m_game_settings.data["viewport"]["height"])
-        );
-        m_draw_target_sprite.setScale(scale, scale);
-        m_view.reset(sf::FloatRect(
-            0.f,
-            0.f,
-            m_game_settings.data["window"]["width"],
-            m_game_settings.data["window"]["height"]
-            )
-        );
-    } else {
-        m_view.reset(sf::FloatRect(
-            0.f,
-            0.f,
-            m_game_settings.data["viewport"]["width"],
-            m_game_settings.data["viewport"]["height"]
-            )
-        );
-    }
     updateViewportSize();
 
     setPrintFPS(m_game_settings.data["debug"]["printFPS"]);
@@ -89,24 +67,12 @@ bool Game::init(const std::string settingsPath) {
 
 void Game::draw() {
     m_window.clear(sf::Color(21, 21, 21));
-    m_draw_target.clear(sf::Color(21, 21, 21));
 
-    if(m_game_settings.data["window"]["pixelToPixel"]){
-        if(!m_scenes_stack.empty())
-            m_scenes_stack.top()->draw(m_draw_target);
+    if(!m_scenes_stack.empty())
+        m_scenes_stack.top()->draw(m_window);
 
-        if(m_enable_print_fps)
-            m_draw_target.draw(m_fps_label);
-        m_draw_target.display();
-        m_draw_target_sprite.setTexture(m_draw_target.getTexture());
-        m_window.draw(m_draw_target_sprite);
-    } else {
-        if(!m_scenes_stack.empty())
-            m_scenes_stack.top()->draw(m_window);
-
-        if(m_enable_print_fps)
-            m_window.draw(m_fps_label);
-    }
+    if(m_enable_print_fps)
+        m_window.draw(m_fps_label);
 
     m_window.display();
 }
@@ -151,6 +117,10 @@ void Game::popScene() {
 void Game::pollEvents() {
     sf::Event event;
         while(m_window.pollEvent(event)){
+
+            if(!m_scenes_stack.empty())
+                m_scenes_stack.top()->handleEvent(event);
+
             switch(event.type){
                 case sf::Event::Closed:
                     stop();
@@ -206,12 +176,24 @@ void Game::updateViewportSize() {
 }
 
 sf::Vector2f Game::getMousePos() {
-    sf::Vector2f pos = getRenderWindow().mapPixelToCoords(sf::Mouse::getPosition(getRenderWindow()));
-    pos.x /= m_draw_target_sprite.getScale().x;
-    pos.y /= m_draw_target_sprite.getScale().y;
-    return pos;
+    return getRenderWindow().mapPixelToCoords(sf::Mouse::getPosition(getRenderWindow()));
 }
 
 sf::Font* Game::getFont() {
     return &m_font;
 }
+
+sf::View* Game::getView() {
+    return &m_view;
+}
+
+void Game::setCameraCenter(const sf::Vector2f& pos) {
+    m_view.setCenter(pos);
+    m_window.setView(m_view);
+    // polsrodek
+    m_fps_label.setPosition(pos - sf::Vector2f(384/2, 216/2) + sf::Vector2f(float(m_game_settings.data["viewport"]["width"]) - 1, 1)); // a
+}
+
+// bool Game::isRectInsideView(const sf::FloatRect& rect) const {
+//     return m_view.
+// }
