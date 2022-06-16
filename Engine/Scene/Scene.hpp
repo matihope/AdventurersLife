@@ -16,6 +16,7 @@ class Scene {
         DrawLayers sprites;
         void addGame(Game* game);
         Game* getGame() const;
+        virtual bool load() = 0;
         virtual void update(const float& dt);
         virtual void physicsUpdate(const float dt);
         virtual void draw(sf::RenderTarget& target);

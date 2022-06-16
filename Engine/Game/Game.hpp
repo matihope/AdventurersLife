@@ -24,7 +24,7 @@ class Game {
     sf::Clock m_clock;
     JsonBridge m_game_settings;
     sf::RenderWindow m_window;
-    std::stack<std::shared_ptr<Scene>> m_scenes_stack;
+    std::stack<std::unique_ptr<Scene>> m_scenes_stack;
     sf::View m_view;
     sf::Font m_font;
     GUI::Label m_fps_label;
@@ -42,7 +42,7 @@ class Game {
         const sf::Vector2u getViewportSize() const;
         const sf::RenderWindow& getRenderWindow() const;
         void updateViewportSize();
-        void addScene(std::shared_ptr<Scene> newScene);
+        bool addScene(std::unique_ptr<Scene> newScene);
         void popScene();
         sf::Vector2f getMousePos();
         sf::Font* getFont();

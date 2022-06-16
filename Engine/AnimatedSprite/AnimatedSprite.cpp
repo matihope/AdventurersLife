@@ -44,6 +44,7 @@ void AnimatedSprite::update(const float& dt){
 }
 
 void AnimatedSprite::play(const std::string& animationName){
+    m_is_paused = false;
     if(m_current_animation_name == animationName)
         return;
 

@@ -31,7 +31,7 @@ void GameScene::addTileMap(std::shared_ptr<TileMap> tileMap) {
     sprites.addSprite(tileMap, 0);
 }
 
-void GameScene::load() {
+bool GameScene::load() {
     auto map = std::make_shared<TileMap>();
     if(!map->load("../worlds/world.json"))
         std::cout << "Could not load world.json. Make sure world is inside the worlds folder.\n";
@@ -41,6 +41,7 @@ void GameScene::load() {
     m_player = std::make_shared<Player>();
     // sprites.addSprite(m_player, 1);
     addUpdatable(m_player);
+    return true;
 }
 
 std::shared_ptr<TileMap> GameScene::getTileMap() const {

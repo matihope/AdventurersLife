@@ -9,10 +9,10 @@ ResourceManager& ResourceManager::get() {
 const sf::Texture& ResourceManager::IgetTexture(const std::string& path) {
     ResourceManager& resourceManager = get();
     if(!resourceManager.m_textures.count(path)){
-        resourceManager.m_textures[path] = std::make_unique<sf::Texture>();
-        resourceManager.m_textures[path]->loadFromFile(path);
+        resourceManager.m_textures[path] = sf::Texture();
+        resourceManager.m_textures[path].loadFromFile(path);
     }
-    return *resourceManager.m_textures[path].get();
+    return resourceManager.m_textures[path];
 }
 
 const sf::Texture& ResourceManager::getTexture(const std::string& path) {

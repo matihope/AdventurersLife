@@ -9,9 +9,8 @@ int main(){
     if(!game.init("settings.json"))
         return 1;
 
-    auto menuScene = std::make_shared<MenuScene>();
-    game.addScene(menuScene);
-    menuScene->load();
+    auto menuScene = std::make_unique<MenuScene>();
+    game.addScene(std::move(menuScene));
 
     while(game.isRunning()){
         game.pollEvents();

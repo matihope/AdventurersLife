@@ -104,9 +104,11 @@ void Game::update() {
 
 }
 
-void Game::addScene(std::shared_ptr<Scene> newState) {
-    newState->addGame(this);
-    m_scenes_stack.push(std::move(newState));
+bool Game::addScene(std::unique_ptr<Scene> newScene) {
+    newScene->addGame(this);
+    bool returnValue = newScene->load();
+    m_scenes_stack.push(std::move(newScene));
+    return returnValue;
 }
 
 void Game::popScene() {

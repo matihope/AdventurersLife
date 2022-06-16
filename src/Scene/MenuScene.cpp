@@ -1,6 +1,5 @@
 #include <Scene/MenuScene.hpp>
 #include <Scene/GameScene.hpp>
-#include <Scene/LabyrinthScene.hpp>
 #include <TileMap/TileMap.hpp>
 #include <CollisionShape/CollisionShape.hpp>
 #include <GUI/GUI.hpp>
@@ -43,10 +42,8 @@ void MenuScene::update(const float& dt) {
 
     if(m_play_btn->isPressed()) {
         m_game->popScene();
-        // auto game_scene = std::make_shared<GameScene>();
-        auto game_scene = std::make_shared<LabyrinthScene>();
-        m_game->addScene(game_scene);
-        game_scene->load();
+        auto menuScene = std::make_unique<MenuScene>();
+        m_game->addScene(std::move(menuScene));
     }
 
 }
