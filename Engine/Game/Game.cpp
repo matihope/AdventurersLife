@@ -80,15 +80,15 @@ void Game::draw() {
 void Game::update() {
     m_dt = m_clock.restart().asSeconds();
 
-    m_physics_update_counter += m_dt;
-    if(m_physics_update_counter >= m_physics_update_call_freq){
-        if(!m_scenes_stack.empty())
+    if(!m_scenes_stack.empty()){
+        m_scenes_stack.top()->cleanEntities();
+        m_physics_update_counter += m_dt;
+        if(m_physics_update_counter >= m_physics_update_call_freq){
             m_scenes_stack.top()->physicsUpdate(m_physics_update_call_freq);
-        m_physics_update_counter -= m_physics_update_call_freq;
-    }
-
-    if(!m_scenes_stack.empty())
+            m_physics_update_counter -= m_physics_update_call_freq;
+        }
         m_scenes_stack.top()->update(m_dt);
+    }
 
     // recalculate avg fps
     if(m_enable_print_fps) {
@@ -114,6 +114,11 @@ bool Game::addScene(std::unique_ptr<Scene> newScene) {
 void Game::popScene() {
     m_scenes_stack.top()->kill();
     m_scenes_stack.pop();
+}
+
+bool Game::replaceTopScene(std::unique_ptr<Scene> newScene) {
+    m_scenes_stack.pop();
+    return addScene(std::move(newScene));
 }
 
 void Game::pollEvents() {

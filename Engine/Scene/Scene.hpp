@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
-#include <DrawLayers/DrawLayers.hpp>
+#include <WorldEntity/WorldEntity.hpp>
+#include <list>
 
 class Game;
 
@@ -10,17 +11,17 @@ class Game;
 class Scene {
     protected:
         Game* m_game;
-        std::vector<std::shared_ptr<Updatable>> m_updatables;
+        std::map<unsigned int, std::list<std::unique_ptr<WorldEntity>>> m_entity_pool;
 
     public:
-        DrawLayers sprites;
         void addGame(Game* game);
         Game* getGame() const;
         virtual bool load() = 0;
+        virtual void cleanEntities();
         virtual void update(const float& dt);
-        virtual void physicsUpdate(const float dt);
+        virtual void physicsUpdate(const float& dt);
         virtual void draw(sf::RenderTarget& target);
-        virtual void addUpdatable(std::shared_ptr<Updatable> updatable);
+        virtual void addEntity(std::unique_ptr<WorldEntity> entity, unsigned int drawOrder = 0);
         virtual void kill() {};
         virtual void handleEvent(const sf::Event& event) {};
 };

@@ -22,7 +22,7 @@ const sf::IntRect& AnimatedSprite::getTextureRect() const {
 
 void AnimatedSprite::addAnimation(const Animation& newAnimation, const std::string& name){
     m_animation_names.push_back(name);
-    m_animations[name] = std::make_shared<Animation>(newAnimation);
+    m_animations[name] = newAnimation;
 }
 
 std::vector<std::string> const AnimatedSprite::getAnimationNames() const {
@@ -51,7 +51,7 @@ void AnimatedSprite::play(const std::string& animationName){
     m_current_frame = 0;
     m_frame_time = 0.f;
     m_current_animation_name = animationName;
-    m_current_animation_ptr = m_animations[animationName];
+    m_current_animation_ptr = &m_animations[animationName];
     setTexture(m_current_animation_ptr->texture);
     setTextureRect((*m_current_animation_ptr).frames[m_current_frame].frameRect);
 }

@@ -6,7 +6,7 @@
 #include <memory>
 
 namespace GUI {
-    class Button : public GameObj, public Updatable {
+    class Button : public WorldEntity {
         Label m_label;
         bool m_is_pressed = false;
         bool m_is_highlighted = false;

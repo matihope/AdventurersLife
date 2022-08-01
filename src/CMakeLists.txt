@@ -1,5 +1,5 @@
 set(GAME_SOURCES
-    Scene/GameScene.cpp Scene/GameScene.hpp
+    # Scene/GameScene.cpp Scene/GameScene.hpp
     Scene/MenuScene.cpp Scene/MenuScene.hpp
     Player/Player.cpp Player/Player.hpp
 )

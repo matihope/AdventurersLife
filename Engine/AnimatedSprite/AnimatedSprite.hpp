@@ -1,10 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
-#include <GameObj/GameObj.hpp>
+#include <WorldEntity/WorldEntity.hpp>
 #include <vector>
 #include <map>
-#include <memory>
 
 struct Frame {
     unsigned int frameTime;
@@ -16,7 +15,7 @@ struct Animation {
     std::vector<Frame> frames;
 };
 
-class AnimatedSprite : public GameObj, public Updatable {
+class AnimatedSprite : public WorldEntity {
     // variables
     float m_frame_time = 0.f;
     unsigned int m_current_frame = 0;
@@ -25,8 +24,8 @@ class AnimatedSprite : public GameObj, public Updatable {
 
     // objects
     sf::Sprite m_sprite;
-    std::map<std::string, std::shared_ptr<Animation>> m_animations;
-    std::shared_ptr<Animation> m_current_animation_ptr = nullptr;
+    std::map<std::string, Animation> m_animations;
+    Animation* m_current_animation_ptr = NULL;
     std::vector<std::string> m_animation_names;
 
 

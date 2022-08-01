@@ -3,9 +3,9 @@
 #include <AnimatedSprite/AnimatedSprite.hpp>
 #include <CollisionShape/CollisionShape.hpp>
 #include <Updatable/Updatable.hpp>
-#include <GameObj/GameObj.hpp>
+#include <WorldEntity/WorldEntity.hpp>
 
-class Tile : public GameObj, public Updatable {
+class Tile : public WorldEntity {
     bool m_is_animated = false;
     bool m_has_collision = false;
     AnimatedSprite m_sprite;

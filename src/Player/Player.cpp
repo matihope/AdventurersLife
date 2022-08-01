@@ -88,27 +88,27 @@ void Player::physicsUpdate(const float dt) {
     rotate(rot);
 
     GameScene* scene = (GameScene*)getScene();
-    std::vector<std::shared_ptr<Tile>>& collidableTiles = scene->getTileMap()->getCollidableTiles();
-    for(auto& tile: collidableTiles){
-        if(tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(moveVec.x, 0)))){
-            int s = Math::sign(moveVec.x);
-            while(moveVec.x * s > 0 && tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(moveVec.x, 0))))
-                moveVec.x -= s * 0.01f;
-            if(Math::sign(moveVec.x) != s)
-                moveVec.x = 0;
-            break;
-        }
-    }
-    for(auto& tile: collidableTiles){
-        if(tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(0, moveVec.y)))){
-            int s = Math::sign(moveVec.y);
-            while(moveVec.y * s > 0 && tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(0, moveVec.y))))
-                moveVec.y -= s * 0.01f;
-            if(Math::sign(moveVec.y) != s)
-                moveVec.y = 0;
-            break;
-        }
-    }
+    // std::vector<std::shared_ptr<Tile>>& collidableTiles = scene->getTileMap()->getCollidableTiles();
+    // for(auto& tile: collidableTiles){
+    //     if(tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(moveVec.x, 0)))){
+    //         int s = Math::sign(moveVec.x);
+    //         while(moveVec.x * s > 0 && tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(moveVec.x, 0))))
+    //             moveVec.x -= s * 0.01f;
+    //         if(Math::sign(moveVec.x) != s)
+    //             moveVec.x = 0;
+    //         break;
+    //     }
+    // }
+    // for(auto& tile: collidableTiles){
+    //     if(tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(0, moveVec.y)))){
+    //         int s = Math::sign(moveVec.y);
+    //         while(moveVec.y * s > 0 && tile->intersects(m_collision_shape.getShape(getTransform(), sf::Vector2f(0, moveVec.y))))
+    //             moveVec.y -= s * 0.01f;
+    //         if(Math::sign(moveVec.y) != s)
+    //             moveVec.y = 0;
+    //         break;
+    //     }
+    // }
     move(moveVec);
     if(moveVec.x > 0)
         m_animation.play("walkRight");
