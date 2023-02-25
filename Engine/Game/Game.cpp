@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <Scene/Scene.hpp>
 #include <Game/Game.hpp>
-#include <CollisionShape/CollisionShape.hpp>
+#include <CollisionComponent/CollisionComponent.hpp>
 #include <iterator>
 #include <iostream>
 
@@ -36,7 +36,7 @@ bool Game::init(const std::string settingsPath) {
             m_game_settings.data["window"]["width"],
             m_game_settings.data["window"]["height"]
         ),
-        m_game_settings.data["window"]["title"]
+        std::string(m_game_settings.data["window"]["title"])
     );
     m_window.setVerticalSyncEnabled(m_game_settings.data["window"]["vsync"]);
 

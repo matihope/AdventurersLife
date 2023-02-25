@@ -96,6 +96,8 @@
         "stack": "cpp",
         "*.inc": "cpp",
         "__availability": "cpp",
-        "cfenv": "cpp"
+        "cfenv": "cpp",
+        "ranges": "cpp",
+        "format": "cpp"
     }
 }

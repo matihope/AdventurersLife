@@ -3,7 +3,7 @@
 #include <JsonBridge/JsonBridge.hpp>
 #include <Updatable/Updatable.hpp>
 #include <AnimatedSprite/AnimatedSprite.hpp>
-#include <CollisionShape/CollisionShape.hpp>
+#include <CollisionComponent/CollisionComponent.hpp>
 #include <Tile/Tile.hpp>
 #include <WorldEntity/WorldEntity.hpp>
 #include <map>

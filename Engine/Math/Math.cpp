@@ -3,8 +3,6 @@
 #include <iostream>
 
 namespace Math {
-
-    // template <typename T>
     int sign(float val) {
         return (0 < val) - (val < 0);
     }

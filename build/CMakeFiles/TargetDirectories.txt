@@ -1,9 +1,0 @@
-/home/mateusz/code/sfml/adventurers_life/build/CMakeFiles/AdventurersLife.dir
-/home/mateusz/code/sfml/adventurers_life/build/CMakeFiles/edit_cache.dir
-/home/mateusz/code/sfml/adventurers_life/build/CMakeFiles/rebuild_cache.dir
-/home/mateusz/code/sfml/adventurers_life/build/Engine/CMakeFiles/Engine.dir
-/home/mateusz/code/sfml/adventurers_life/build/Engine/CMakeFiles/edit_cache.dir
-/home/mateusz/code/sfml/adventurers_life/build/Engine/CMakeFiles/rebuild_cache.dir
-/home/mateusz/code/sfml/adventurers_life/build/src/CMakeFiles/Game.dir
-/home/mateusz/code/sfml/adventurers_life/build/src/CMakeFiles/edit_cache.dir
-/home/mateusz/code/sfml/adventurers_life/build/src/CMakeFiles/rebuild_cache.dir

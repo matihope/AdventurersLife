@@ -4,6 +4,7 @@
 #include <WorldEntity/WorldEntity.hpp>
 #include <vector>
 #include <map>
+#include <memory>
 
 struct Frame {
     unsigned int frameTime;

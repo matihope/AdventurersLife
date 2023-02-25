@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <Updatable/Updatable.hpp>
+#include <memory>
+#include <CollisionComponent/CollisionComponent.hpp>
 
 typedef unsigned long long EntityID;
 
@@ -10,7 +12,6 @@ class WorldEntity : public sf::Drawable, public sf::Transformable, public Updata
         EntityID m_entityId;
 
         bool m_toKill = false;
-
 
     public:
         WorldEntity();

@@ -4,9 +4,9 @@
 void Tile::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     target.draw(m_sprite, states);
-    #if(DEBUG)
-        target.draw(m_collision_shape, states);
-    #endif
+    // #if(DEBUG)
+    //     target.draw(m_collision_shape, states);
+    // #endif
 }
 
 void Tile::update(const float& dt){
@@ -36,10 +36,10 @@ const sf::IntRect& Tile::getTextureRect() const {
     return m_sprite.getTextureRect();
 }
 
-void Tile::setCollisionShape(const CollisionShape& shape) {
-    m_has_collision = true;
-    m_collision_shape = shape;
-}
+// void Tile::setCollisionShape(const CollisionComponent& shape) {
+//     m_has_collision = true;
+//     m_collision_shape = shape;
+// }
 
 bool Tile::isAnimated() const {
     return m_is_animated;
@@ -49,6 +49,6 @@ bool Tile::hasCollision() const {
     return m_has_collision;
 }
 
-bool Tile::intersects(const std::vector<sf::Vector2f>& shape) const {
-    return m_collision_shape.intersects(getTransform(), shape);
-}
+// bool Tile::intersects(const std::vector<sf::Vector2f>& shape) const {
+//     return m_collision_shape.intersects(getTransform(), shape);
+// }

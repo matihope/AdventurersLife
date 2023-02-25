@@ -10,11 +10,13 @@ set(ENGINE_SOURCES
     TileMap/TileMapLayer.cpp
     Updatable/Updatable.cpp
     Entity/Entity.cpp
+    CollisionComponent/CollisionComponent.cpp
     CollisionShape/CollisionShape.cpp
     Math/Math.cpp
     Tile/Tile.cpp
     ResourceManager/ResourceManager.cpp
     WorldEntity/WorldEntity.cpp
+    PhysicsManager/PhysicsManager.cpp
 )
 
 add_library(Engine ${ENGINE_SOURCES})

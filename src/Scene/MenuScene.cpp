@@ -1,7 +1,7 @@
 #include <Scene/MenuScene.hpp>
 #include <Scene/GameScene.hpp>
 #include <TileMap/TileMap.hpp>
-#include <CollisionShape/CollisionShape.hpp>
+#include <CollisionComponent/CollisionComponent.hpp>
 #include <GUI/GUI.hpp>
 #include <Game/Game.hpp>
 
@@ -24,7 +24,7 @@ bool MenuScene::load() {
     // test_btn->setAlignment(GUI::HAlignment::MIDDLE, GUI::VAlignment::CENTER);
     // test_btn->setPosition(30, int(m_game->getViewportSize().y / 2));
     // test_btn->setTextSize(24);
-    // CollisionShape shape;
+    // CollisionComponent shape;
     // shape.setShape({
     //     {-10, -10},
     //     {20, 0},

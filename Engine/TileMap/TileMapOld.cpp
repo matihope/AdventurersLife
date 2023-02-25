@@ -70,7 +70,7 @@ bool TileMap::loadTiled(const std::string& mapFile){
                 }
 
                 auto& cs_data = tile["objectgroup"]["objects"][0]; // collision_shape_data
-                CollisionShape shape;
+                CollisionComponent shape;
                 std::vector<sf::Vector2f> points;
                 float x = roundf(cs_data["x"]);
                 float y = roundf(cs_data["y"]);

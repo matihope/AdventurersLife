@@ -63,7 +63,7 @@ void LoadCharacterAnimations(const std::string& texturePath, AnimatedSprite& ani
 }
 
 void Player::ready() {
-    m_collision_shape.setShape({ {2.0f, 8.0f}, {14.0f, 8.f}, {14.0f, 14.0f}, {2.0f, 14.0f} });
+    // m_collision_shape.setShape({ {2.0f, 8.0f}, {14.0f, 8.f}, {14.0f, 14.0f}, {2.0f, 14.0f} });
     // m_collision_shape.setDraw(true);
 
     LoadCharacterAnimations("../resources/Actor/Characters/Boy/SpriteSheet.png", m_animation);
