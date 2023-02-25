@@ -1,52 +1,76 @@
 #include <CollisionShape/CollisionShape.hpp>
-#include <Math/Math.hpp>
+#include <WorldEntity/WorldEntity.hpp>
 #include <iostream>
 
-namespace Debug {
-    bool debugDraw = false;
-    void setDebugCollisionDraw(bool draw){
-        debugDraw = draw;
-    }
+CircleCollision::CircleCollision(WorldEntity* parent) : CollisionComponent(parent) {
+    setRadius(5.f);
 }
 
-CollisionShape::CollisionShape() {
-    // m_shape_repr.setOutlineColor(m_outline_color);
-    // m_shape_repr.setOutlineThickness(1.f);
-    m_shape_repr.setFillColor(m_fill_color);
+CircleCollision::CircleCollision(WorldEntity* parent, const float& radius) : CollisionComponent(parent) {
+    setRadius(radius);
 }
 
-void CollisionShape::setShape(const std::vector<sf::Vector2f> points) {
-    m_shape = points;
-    m_shape_repr.setPointCount(points.size());
-    for(size_t i = 0; i < points.size(); ++i)
-        m_shape_repr.setPoint(i, points[i]);
+void CircleCollision::setRadius(const float& radius) {
+    m_radius = radius;
 }
 
-void CollisionShape::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    if(!m_draw && !Debug::debugDraw) return;
+const float& CircleCollision::getRadius() const {
+    return m_radius;
+}
+
+void CircleCollision::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    CollisionComponent::draw(target, states);
+
+    sf::CircleShape shape(m_radius);
+    shape.setFillColor(m_fill_color);
+    shape.setOutlineColor(m_outline_color);
+    target.draw(shape, states);
+}
+
+bool CircleCollision::contains(const sf::Vector2f& point) const {
+    float a = getPosition().x - point.x;
+    float b = getPosition().y - point.y;
+    return a * a + b * b <= m_radius * m_radius;
+}
+
+// RECT
+
+RectCollision::RectCollision(WorldEntity* parent) : CollisionComponent(parent) {
+    m_parent = parent;
+    setSize(5.f, 5.f);
+}
+
+RectCollision::RectCollision(WorldEntity* parent, const float& width, const float& height) : CollisionComponent(parent) {
+    setSize(width, height);
+}
+
+void RectCollision::setSize(const float& width, const float& height) {
+    m_size.x = width;
+    m_size.y = height;
+}
+
+const sf::Vector2f& RectCollision::getSize() const {
+    return m_size;
+}
+
+void RectCollision::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    if(!shouldDraw()) return;
     states.transform *= getTransform();
-    target.draw(m_shape_repr, states);
+    sf::RectangleShape shape(m_size);
+    shape.setFillColor(m_fill_color);
+    shape.setOutlineColor(m_outline_color);
+    target.draw(shape, states);
 }
 
-void CollisionShape::setDraw(const bool draw) {
-    m_draw = draw;
-}
-
-bool CollisionShape::contains(const sf::Transform& parentTransform, const sf::Vector2f pos) const {
-    auto transformedShape = m_shape;
-    for(auto& s: transformedShape)
-        s = parentTransform.transformPoint(s);
-    return Math::isPointInsideConvex(transformedShape, pos);
-}
-
-std::vector<sf::Vector2f> CollisionShape::getShape(sf::Transform parentTransform, const sf::Vector2f& offset) const {
-    auto transformedShape = m_shape;
-    parentTransform.translate(offset);
-    for(auto& s: transformedShape)
-        s = parentTransform.transformPoint(s);
-    return transformedShape;
-}
-
-bool CollisionShape::intersects(const sf::Transform& parentTransform, const std::vector<sf::Vector2f>& otherShape) const {
-    return Math::doShapesIntersect(getShape(parentTransform), otherShape);
+bool RectCollision::contains(const sf::Vector2f& point) const {
+    auto pos = m_parent->getTransform().transformPoint(getPosition());
+    if(point.x < pos.x)
+        return false;
+    if(point.x > pos.x + m_size.x)
+        return false;
+    if(point.y < pos.y)
+        return false;
+    if(point.y > pos.y + m_size.y)
+        return false;
+    return true;
 }

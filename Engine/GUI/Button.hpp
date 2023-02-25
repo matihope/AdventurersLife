@@ -6,7 +6,7 @@
 #include <memory>
 
 namespace GUI {
-    class Button : public GameObj, public Updatable {
+    class Button : public WorldEntity {
         Label m_label;
         bool m_is_pressed = false;
         bool m_is_highlighted = false;
@@ -16,7 +16,7 @@ namespace GUI {
             m_color_normal = sf::Color(255, 255, 255),
             m_color_hover = sf::Color(200, 200, 200),
             m_color_highlight = sf::Color(125, 125, 125);
-        CollisionShape m_collision_shape;
+        std::unique_ptr<RectCollision> m_collision_shape;
         bool m_has_custom_collision_shape = false;
 
 
@@ -29,10 +29,10 @@ namespace GUI {
             void update(const float& dt) override;
             void draw(sf::RenderTarget& target, sf::RenderStates states) const;
             bool isPressed() const;
-            virtual bool isColliding(const sf::Vector2f);
             void updateDefaultCollisionShape();
-            void setCollisionShape(const CollisionShape shape);
+            void setCollisionShape(std::unique_ptr<RectCollision> shape);
             const sf::FloatRect getBounds() const;
             void setAlignment(HAlignment newHAlignment, VAlignment newVAlignment);
+
     };
 }

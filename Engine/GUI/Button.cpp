@@ -41,7 +41,7 @@ namespace GUI {
 
         #if(DEBUG)
             // debugs:
-            target.draw(m_collision_shape, states);
+            target.draw(*m_collision_shape, states);
         #endif
     }
 
@@ -49,7 +49,7 @@ namespace GUI {
         sf::Vector2f mousePos = getScene()->getGame()->getMousePos();
         m_is_highlighted = false;
 
-        if(isColliding(mousePos)){
+        if(m_collision_shape->contains(mousePos)){
             m_label.setColor(m_color_hover);
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
                 m_is_highlighted = true;
@@ -68,28 +68,23 @@ namespace GUI {
         return m_is_pressed;
     }
 
-    bool Button::isColliding(const sf::Vector2f pos) {
-        return m_collision_shape.contains(getTransform(), pos);
-    }
+    // bool Button::isColliding(const sf::Vector2f pos) {
+    //     return m_collision_shape.contains(getTransform(), pos);
+    // }
 
     void Button::updateDefaultCollisionShape() {
         if(m_has_custom_collision_shape)
             return;
 
         sf::FloatRect bounds = getBounds();
-        CollisionShape newCollisionShape;
-        newCollisionShape.setShape({
-            {bounds.left, bounds.top},
-            {bounds.left + bounds.width, bounds.top},
-            {bounds.left + bounds.width, bounds.top + bounds.height},
-            {bounds.left, bounds.top + bounds.height}
-        });
-        m_collision_shape = newCollisionShape;
+        m_collision_shape = std::make_unique<RectCollision>(this, bounds.width, bounds.height);
+        m_collision_shape->setPosition(bounds.left, bounds.top);
+        m_collision_shape->move(getPosition());
     }
 
-    void Button::setCollisionShape(const CollisionShape shape) {
+    void Button::setCollisionShape(std::unique_ptr<RectCollision> shape) {
         m_has_custom_collision_shape = true;
-        m_collision_shape = shape;
+        m_collision_shape = std::move(shape);
     }
 
     const sf::FloatRect Button::getBounds() const {

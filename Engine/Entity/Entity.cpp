@@ -9,6 +9,6 @@ void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(m_shadow, states);
     target.draw(m_animation, states);
     #if(DEBUG)
-        target.draw(m_collision_shape, states);
+        // target.draw(m_collision_shape, states);
     #endif
 }

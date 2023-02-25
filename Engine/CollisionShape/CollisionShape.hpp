@@ -1,29 +1,31 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <GameObj/GameObj.hpp>
-#include <vector>
+#include <CollisionComponent/CollisionComponent.hpp>
 
-namespace Debug {
-    void setDebugCollisionDraw(bool draw);
-}
-
-class CollisionShape : public GameObj {
-    bool m_draw = false;
-    std::vector<sf::Vector2f> m_shape;
-    sf::Vector2f center;
-    sf::ConvexShape m_shape_repr;
-    sf::Color m_outline_color = sf::Color(200.f, 100.f, 125.f, 175.f);
-    sf::Color m_fill_color = sf::Color(50.f, 175.f, 255.f, 100.f);
+class CircleCollision : public CollisionComponent {
+    private:
+        float m_radius;
 
     public:
-        CollisionShape();
-        void setShape(std::vector<sf::Vector2f> points);
-        std::vector<sf::Vector2f> getShape(sf::Transform parentTransform, const sf::Vector2f& offset = sf::Vector2f(0, 0)) const;
-        void setDraw(const bool draw);
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-        bool contains(const sf::Transform& parentTransform, const sf::Vector2f pos) const;
-        bool intersects(const sf::Transform& parentTransform, const std::vector<sf::Vector2f>& otherShape) const;
-        bool rectIntersects(const sf::Transform& parentTransform, const std::vector<sf::Vector2f>& otherShape) const;
+        CircleCollision(WorldEntity* parent);
+        CircleCollision(WorldEntity* parent, const float& radius);
+        ~CircleCollision() {};
+        void setRadius(const float& radius);
+        const float& getRadius() const;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        bool contains(const sf::Vector2f& point) const;
 
+};
 
+class RectCollision : public CollisionComponent {
+    private:
+        sf::Vector2f m_size;
+
+    public:
+        RectCollision(WorldEntity* parent);
+        RectCollision(WorldEntity* parent, const float& width, const float& height);
+        ~RectCollision() {};
+        void setSize(const float& width, const float& height);
+        const sf::Vector2f& getSize() const;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+        bool contains(const sf::Vector2f& point) const;
 };

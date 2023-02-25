@@ -1,12 +1,13 @@
 #include <Scene/MenuScene.hpp>
 #include <Scene/GameScene.hpp>
 #include <TileMap/TileMap.hpp>
-#include <CollisionShape/CollisionShape.hpp>
+#include <CollisionComponent/CollisionComponent.hpp>
 #include <GUI/GUI.hpp>
 #include <Game/Game.hpp>
 
 bool MenuScene::load() {
-    m_play_btn = std::make_shared<GUI::Button>(m_game->getFont(), "Play");
+    auto btn = std::make_unique<GUI::Button>(m_game->getFont(), "Play");
+    m_play_btn = btn.get();
     m_play_btn->setPosition(int(m_game->getViewportSize().x / 2), int(m_game->getViewportSize().y / 2));
 
     // #if(DEBUG)
@@ -17,14 +18,13 @@ bool MenuScene::load() {
     //     sprites.addSprite(background_spr, 0);
     // #endif
 
-    sprites.addSprite(m_play_btn, 0);
-    addUpdatable(m_play_btn);
+    addEntity(std::move(btn));
 
     // auto test_btn = std::make_shared<GUI::Button>(m_game->getFont(), "TEST");
     // test_btn->setAlignment(GUI::HAlignment::MIDDLE, GUI::VAlignment::CENTER);
     // test_btn->setPosition(30, int(m_game->getViewportSize().y / 2));
     // test_btn->setTextSize(24);
-    // CollisionShape shape;
+    // CollisionComponent shape;
     // shape.setShape({
     //     {-10, -10},
     //     {20, 0},
@@ -41,9 +41,8 @@ void MenuScene::update(const float& dt) {
     Scene::update(dt);
 
     if(m_play_btn->isPressed()) {
-        m_game->popScene();
-        auto menuScene = std::make_unique<MenuScene>();
-        m_game->addScene(std::move(menuScene));
+        auto gameScene = std::make_unique<MenuScene>();
+        m_game->replaceTopScene(std::move(gameScene));
     }
 
 }

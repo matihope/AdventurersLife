@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <DrawLayers/DrawLayers.hpp>
 #include <Updatable/Updatable.hpp>
 #include <JsonBridge/JsonBridge.hpp>
 #include <GUI/Label.hpp>
@@ -43,6 +42,7 @@ class Game {
         const sf::RenderWindow& getRenderWindow() const;
         void updateViewportSize();
         bool addScene(std::unique_ptr<Scene> newScene);
+        bool replaceTopScene(std::unique_ptr<Scene> newScene);
         void popScene();
         sf::Vector2f getMousePos();
         sf::Font* getFont();

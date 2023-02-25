@@ -1,6 +1,5 @@
 set(ENGINE_SOURCES
     AnimatedSprite/AnimatedSprite.cpp
-    DrawLayers/DrawLayers.cpp
     Entity/Entity.cpp
     Game/Game.cpp
     GUI/Label.cpp
@@ -8,12 +7,16 @@ set(ENGINE_SOURCES
     JsonBridge/JsonBridge.cpp
     Scene/Scene.cpp
     TileMap/TileMap.cpp
+    TileMap/TileMapLayer.cpp
     Updatable/Updatable.cpp
     Entity/Entity.cpp
+    CollisionComponent/CollisionComponent.cpp
     CollisionShape/CollisionShape.cpp
     Math/Math.cpp
     Tile/Tile.cpp
     ResourceManager/ResourceManager.cpp
+    WorldEntity/WorldEntity.cpp
+    PhysicsManager/PhysicsManager.cpp
 )
 
 add_library(Engine ${ENGINE_SOURCES})

@@ -5,14 +5,11 @@
 #include <Player/Player.hpp>
 
 class GameScene : public Scene {
-    std::shared_ptr<TileMap> m_tile_map;
-    std::shared_ptr<Player> m_player;
+    private:
+        Player* m_player;
 
     public:
         bool load();
-        void addTileMap(std::shared_ptr<TileMap> tileMap);
         void draw(sf::RenderTarget& target);
         void update(const float& dt);
-        std::shared_ptr<TileMap> getTileMap() const;
-
 };

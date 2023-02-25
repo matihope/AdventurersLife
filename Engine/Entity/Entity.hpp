@@ -1,12 +1,12 @@
 #pragma once
-#include <AnimatedSprite/AnimatedSprite.hpp>
 #include <Updatable/Updatable.hpp>
-#include <CollisionShape/CollisionShape.hpp>
-#include <GameObj/GameObj.hpp>
+#include <CollisionComponent/CollisionComponent.hpp>
+#include <WorldEntity/WorldEntity.hpp>
+#include <AnimatedSprite/AnimatedSprite.hpp>
 
-class Entity : public GameObj, public Updatable {
+class Entity : public WorldEntity {
     protected:
-        CollisionShape m_collision_shape;
+        CollisionComponent* m_collision_shape;
         AnimatedSprite m_animation;
         sf::Sprite m_shadow;
 

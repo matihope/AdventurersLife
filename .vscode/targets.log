@@ -1,0 +1,262 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.3
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Fri Aug 19 18:45:07 2022
+
+# Variables
+
+# environment
+GDK_BACKEND = x11
+# environment
+LC_ALL = C
+# environment
+NO_AT_BRIDGE = 1
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+VSCODE_CWD = /home/mateusz
+# environment
+GDM_LANG = en_US.UTF-8
+# default
+MAKE_COMMAND := make
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# environment
+PWD = /home/mateusz/code/adventurersLife
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+MAIL = /var/spool/mail/mateusz
+# environment
+XDG_DATA_DIRS = /home/mateusz/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = /home/mateusz/.config/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
+# environment
+LANG = C
+# environment
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.H3JKQ1
+# default
+.LOADED := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# makefile
+MAKEFLAGS = pqrR
+# makefile
+CURDIR := /home/mateusz/code/adventurersLife
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+WAYLAND_DISPLAY = wayland-0
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+OMF_PATH = /home/mateusz/.local/share/omf
+# environment
+XDG_SESSION_DESKTOP = gnome
+# makefile
+MAKEFILE_LIST := 
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_PID = 2590
+# environment
+XDG_SESSION_TYPE = wayland
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+SESSION_MANAGER = local/mati-arch:@/tmp/.ICE-unix/880,unix/mati-arch:/tmp/.ICE-unix/880
+# automatic
+*F = $(notdir $*)
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{},"_languagePackSupport":true}
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile
+SHELL = /bin/sh
+# default
+MAKECMDGOALS := all
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+SHLVL = 1
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = /home/mateusz/.cargo/bin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+# default
+MAKEFILES := 
+# environment
+MOTD_SHOWN = pam
+# automatic
+^F = $(notdir $^)
+# environment
+INVOCATION_ID = bc9593b40a524bea8b2b36293b5e9d98
+# environment
+USERNAME = mateusz
+# environment
+GNOME_SETUP_DISPLAY = :1
+# automatic
+?F = $(notdir $?)
+# environment
+XDG_CURRENT_DESKTOP = GNOME
+# automatic
++F = $(notdir $+)
+# environment
+DESKTOP_SESSION = gnome
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = GNOME
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+LOGNAME = mateusz
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/visual-studio-code.desktop
+# makefile
+.DEFAULT_GOAL := 
+# environment
+SYSTEMD_EXEC_PID = 896
+# environment
+DISPLAY = :0
+# environment
+USER = mateusz
+# default
+MAKE_VERSION := 4.3
+# environment
+MANAGERPID = 814
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2573
+# environment
+_ = /usr/bin/make
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+JOURNAL_STREAM = 8:20424
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/mateusz
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK = /run/user/1000/vscode-00173848-1.70.1-main.sock
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+GDMSESSION = gnome
+# environment
+OMF_CONFIG = /home/mateusz/.config/omf
+# variable set hash-table stats:
+# Load=89/1024=9%, Rehash=0, Collisions=2/116=2%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 66310, inode 1983284): 15 files, no impossibilities.
+
+# 15 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 23 / storage = 194 B / avg = 8 B
+# current buf: size = 8162 B / used = 194 B / count = 23 / avg = 8 B
+
+# strcache performance: lookups = 26 / hit rate = 11%
+# hash-table stats:
+# Load=23/8192=0%, Rehash=0, Collisions=0/26=0%
+# Finished Make data base on Fri Aug 19 18:45:07 2022
+
+ 

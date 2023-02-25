@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <Scene/Scene.hpp>
 #include <Game/Game.hpp>
-#include <CollisionShape/CollisionShape.hpp>
+#include <CollisionComponent/CollisionComponent.hpp>
 #include <iterator>
 #include <iostream>
 
@@ -36,7 +36,7 @@ bool Game::init(const std::string settingsPath) {
             m_game_settings.data["window"]["width"],
             m_game_settings.data["window"]["height"]
         ),
-        m_game_settings.data["window"]["title"]
+        std::string(m_game_settings.data["window"]["title"])
     );
     m_window.setVerticalSyncEnabled(m_game_settings.data["window"]["vsync"]);
 
@@ -80,15 +80,15 @@ void Game::draw() {
 void Game::update() {
     m_dt = m_clock.restart().asSeconds();
 
-    m_physics_update_counter += m_dt;
-    if(m_physics_update_counter >= m_physics_update_call_freq){
-        if(!m_scenes_stack.empty())
+    if(!m_scenes_stack.empty()){
+        m_scenes_stack.top()->cleanEntities();
+        m_physics_update_counter += m_dt;
+        if(m_physics_update_counter >= m_physics_update_call_freq){
             m_scenes_stack.top()->physicsUpdate(m_physics_update_call_freq);
-        m_physics_update_counter -= m_physics_update_call_freq;
-    }
-
-    if(!m_scenes_stack.empty())
+            m_physics_update_counter -= m_physics_update_call_freq;
+        }
         m_scenes_stack.top()->update(m_dt);
+    }
 
     // recalculate avg fps
     if(m_enable_print_fps) {
@@ -114,6 +114,11 @@ bool Game::addScene(std::unique_ptr<Scene> newScene) {
 void Game::popScene() {
     m_scenes_stack.top()->kill();
     m_scenes_stack.pop();
+}
+
+bool Game::replaceTopScene(std::unique_ptr<Scene> newScene) {
+    m_scenes_stack.pop();
+    return addScene(std::move(newScene));
 }
 
 void Game::pollEvents() {

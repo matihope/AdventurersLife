@@ -10,7 +10,7 @@ class Updatable {
     public:
         void addScene(Scene* scene);
         Scene* getScene();
-        virtual void update(const float& dt) = 0;
+        virtual void update(const float& dt) {};
         virtual void physicsUpdate(const float dt) {};
         virtual void ready() {};
 };
